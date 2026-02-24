@@ -1,0 +1,129 @@
+
+% Encoding and font
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{textcomp} % symbols
+\usepackage{xcolor}
+
+% Page layout
+\usepackage{geometry}
+\geometry{
+  top=5cm,       % space for table header
+  bottom=2.5cm,
+  left=2.5cm,
+  right=2.5cm,
+  headheight=120pt
+}
+\usepackage{setspace}
+
+% Headers and footers
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\fancyhf{}
+\rfoot{\thepage}
+
+% Tables
+\usepackage{tabularx,booktabs,array,longtable,calc}
+\usepackage{footnote}
+% \makesavenoteenv{longtable}
+
+% Graphics
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\makeatother
+\makeatletter
+\def\fps@figure{htbp} % default figure placement
+\makeatother
+
+% Links
+\usepackage{hyperref}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}
+}
+\urlstyle{same}
+
+% Citations
+\usepackage{apacite}
+\bibliographystyle{apacite}
+
+% Math
+\usepackage{amsmath,amssymb}
+
+% Misc
+\usepackage{titlesec}
+\usepackage{iftex}
+\usepackage{subfiles}
+\usepackage[normalem]{ulem} % strikethrough support
+
+% Optional enhancements
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
+% Parskip handling
+\makeatletter
+\@ifundefined{KOMAClassName}{%
+  \setlength{\parindent}{0pt}
+  \setlength{\parskip}{6pt plus 2pt minus 1pt}
+}{%
+  \KOMAoptions{parskip=half}
+}
+\makeatother
+
+% Custom commands
+\newcommand{\todayISO}{%
+  \the\year%
+  \ifnum\month<10 0\fi\the\month%
+  \ifnum\day<10 0\fi\the\day%
+}
+
+\newcommand{\includesection}[1]{%
+  \clearpage
+  \subfile{#1}
+}
+
+\renewcommand*\contentsname{Table of Contents:}
+\setcounter{secnumdepth}{2}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Define header
+\fancyhead[L]{%
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabularx}{\textwidth}{p{3cm}Xp{4cm}}
+    % \hline
+    % \begin{figure}[h]
+    \vspace{0mm}
+    \includegraphics[width=3cm]{media/stellar_space_logo.png}
+    % \end{figure}
+    &
+    \vspace{0mm}
+    \includegraphics[width=5.5cm]{media/inholland_logo.png}
+    &
+    \vspace{0mm}
+    Document: Project Plan \newline
+    Issue: 1.0 \newline
+    Date: \today\newline
+    Page: \thepage~of~\pageref{LastPage} \\
+    % \hline
+    % Security class: TBD &
+    % Model: TBD &
+    % Work package: N/A \newline
+    % Configuration ID: N/A \newline
+    % Template issue: 1.2 \\
+    % \hline
+  \end{tabularx}%
+}
+
+\fancypagestyle{noheader}{
+  \fancyhf{}              % clear all header/footer
+  \renewcommand{\headrulewidth}{0pt} % remove header line
+  % \fancyfoot[L]{\thepage} % keep centered page number
+}
