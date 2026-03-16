@@ -1,0 +1,102 @@
+\DTLnewdb{researchquestions}
+
+\newcommand{\RQadd}[7]{
+    \DTLnewrow{researchquestions}
+    \DTLnewdbentry{researchquestions}{id}{RQ-#1}
+    \DTLnewdbentry{researchquestions}{label}{#2}
+    \DTLnewdbentry{researchquestions}{short}{#3}
+    \DTLnewdbentry{researchquestions}{long}{#4}
+    \DTLnewdbentry{researchquestions}{method}{#5}
+    \DTLnewdbentry{researchquestions}{tools}{#6}
+    \DTLnewdbentry{researchquestions}{output}{#7}
+}
+
+\newcommand{\RQ}[2]{%
+    \DTLfetch{researchquestions}{id}{#1}{#2}%
+}
+
+\newcommand{\RQtable}[1]{
+
+    \begin{tabularx}{\textwidth}{l X}
+        \toprule
+        \textbf{#1}                & \textbf{\RQ{#1}{label}} \\
+        \midrule
+        % \textbf{Short Description } & \RQ{#1}{short}          \\
+        \textbf{Description}       & \RQ{#1}{long}           \\
+        \textbf{Research Method}   & \RQ{#1}{method}         \\
+        \textbf{Instruments Tools} & \RQ{#1}{tools}          \\
+        \textbf{Output Data}       & \RQ{#1}{output}         \\
+        \bottomrule
+    \end{tabularx}
+}
+
+\newcommand{\ResearchMatrix}{
+    \DTLforeach{researchquestions}{
+        \id=id%
+    }{
+        \RQtable{\id}
+    }
+}
+
+\RQadd{1}{Requirements}
+{What are the requirements?}
+{What functional, performance, and safety requirements must the power generation and feed system meet to be integrated into a UAV?}
+{Literature review and stakeholder analysis}
+{Scientific literature, hydrogen and UAV standards, requirement templates}
+{System requirements specification}
+
+\RQadd{2}{Characteristics}
+{How do the FCU and CGG work?}
+{What are the relevant performance characteristics of Solid Flow’s cool gas generator and Stellar Space Industries’ flow control system?}
+{Technical analysis and literature study}
+{Supplier datasheets, technical documentation, prior test data}
+{Performance characteristics overview}
+
+\RQadd{3}{Flight-Time Improvement}
+{What flight-time improvement is achievable?}
+{What flight-time improvement is theoretically achievable with hydrogen storage and fuel cells compared to state-of the-art UAV battery systems?}
+{Analytical modelling and comparison}
+{Energy density calculations, MATLAB/Excel models}
+{Theoretical flight-time estimation}
+
+\RQadd{4}{System Architecture}
+{Which system architecture is optimal?}
+{Which system architecture best balances safety, efficiency, weight, system complexity, and manufacturability for the power generation and feed system?}
+{Conceptual design and trade-off analysis}
+{Morphological chart, decision matrix}
+{Selected system architecture}
+
+\RQadd{5}{Component Selection}
+{Which components are most suitable?}
+{Which components (fuel cell, intermediate energy storage, power electronics) are most suitable based on the system requirements and design constraints?}
+{Component selection study}
+{Supplier datasheets, selection criteria tables}
+{Selected component list with justification}
+
+\RQadd{6}{Mechanical Integration}
+{What modifications to the UAV are required?}
+{What mechanical modifications are required to integrate the hydrogen storage, generator, fuel cell, and power electronics into a UAV airframe?}
+{Mechanical design}
+{CAD software, mass and tolerance analysis}
+{Mechanical design drawings and mass breakdown}
+
+\RQadd{7}{Electrical Architecture}
+{What electrical architecture ensures stable power delivery?}
+{What electrical architecture ensures stable power delivery from the fuel cell system to state-of-the-art UAV propulsion systems and onboard electronics?}
+{Electrical system design}
+{Electrical schematics, simulation tools}
+{Electrical architecture and schematics}
+
+\RQadd{8}{System Performance}
+{How does the system perform during testing?}
+{How does the integrated hydrogen-based power system perform during ground testing in terms of power output, stability, efficiency, and safety?}
+{Experimental testing}
+{Hydrogen supply, sensors, data acquisition system}
+{Measured performance and test results}
+
+\RQadd{9}{Feasibility and Risk}
+{What risks affect system feasibility?}
+{What technical risks, failure modes, or limitations affect the overall feasibility of implementing the system in operational UAV flights?}
+{Risk analysis and evaluation}
+{Failure mode effect analysis (FMEA), test observations, design review}
+{Feasibility assessment and risk overview}

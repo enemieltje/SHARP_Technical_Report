@@ -1,0 +1,52 @@
+\section{Risks}
+% \textit{
+%     Points of failure for the project should be identified here.
+%     Internal and external risks should be separated.
+%     Grit has a whole system on doing this, assigning a value for likelihood and impact to each risk.
+% }
+
+In order to ensure the chance of success for this project is as high as possible, some of the major risks have been identified. Each risk has been assigned a level of likelihood and a level of impact. Furthermore, a mitigation strategy has been created for each risk in order to lower its likelihood, impact or both.
+
+Risks have been separated into internal and external risks. Internal risks are managed by project members or stakeholders, while external risks are events that happen outside of the control of project members.
+
+% Internal Risks
+\begin{table}[htp]
+    \begin{tabularx}{\textwidth}{XllX}
+        \toprule
+        \textbf{Risk}                                                 & \textbf{Likelihood} & \textbf{Impact} & \textbf{Mitigation Strategy}                                                 \\
+        \midrule
+        Schedule overrun due to redesign iterations                   & Medium              & High            & Iterative validation,\newline design reviews,\newline schedule buffer        \\
+        Schedule delay due to failed tests                            & Medium              & High            & Incremental testing,\newline early subsystem validation                      \\
+        Budget overrun due to unexpected component costs              & Low                 & Medium          & Cost monitoring,\newline contingency budget                                  \\
+        Underestimation of subsystem integration complexity           & Medium              & High            & Early interface definition,\newline integration plan                         \\
+        Electrical instability or control issues in power electronics & Medium              & High            & Simulation before implementation,\newline staged testing                     \\
+        Thermal management problems in fuel cell or electronics       & Medium              & Medium          & Thermal analysis,\newline temperature monitoring                             \\
+        Hydrogen leakage in test setup                                & Low                 & High            & Leak testing,\newline gas sensors,                                           \\
+        Overpressure in hydrogen lines                                & Low                 & High            & Pressure relief valves,\newline certified components                         \\
+        Ignition risk due to electrical components                    & Low                 & High            & Intrinsically safe design principles,\newline grounding,\newline ventilation \\
+        Inaccurate measurement data due to sensor errors              & Medium              & Medium          & Sensor calibration,\newline redundant measurements                           \\
+        Insufficient documentation during development                 & Low                 & Medium          & Structured documentation process,\newline weekly updates                     \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Internal Risks}
+\end{table}
+
+
+% External Risks
+\begin{table}[htp]
+    \begin{tabularx}{\textwidth}{XllX}
+        \toprule
+        \textbf{Risk}                                               & \textbf{Likelihood} & \textbf{Impact} & \textbf{Mitigation Strategy}                                      \\
+        \midrule
+        Delays in hardware acquisition/\newline manufacturing       & Medium              & Medium          & Early ordering,\newline multiple suppliers                        \\
+        Supplier delivers components not meeting specifications     & Low                 & High            & Verification upon delivery,\newline clear specification documents \\
+        Changes in availability of hydrogen supply for testing      & Low                 & High            & Early coordination with supplier,\newline backup supply option    \\
+        Changes in company priorities affecting supervision         & Low                 & Medium          & Regular alignment meetings,\newline clear planning milestones     \\
+        Regulatory or safety restrictions limiting hydrogen testing & Low                 & High            & Early safety approval,\newline compliance check with regulations  \\
+        \bottomrule
+    \end{tabularx}
+    \caption{External Risks}
+\end{table}
+
+
+\clearpage

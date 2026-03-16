@@ -1,0 +1,146 @@
+\section{Requirements}
+
+\emph{From the mission scenario presented by Wren Aerospace et al. (discussed in section~\ref{sec:mission_scenario}) a set of system requirements is derived. From this mission scenario the system functions are formulated, which are decomposed into subfunctions. The system requirements are then allocated to these system functions.}
+
+
+% System level Requirements
+\subsection{System Level Requirements}
+
+% user reqs
+The user requirements defined by Stellar Space Industries, Solid Flow and Wren Aerospace are summarised below:
+\begin{itemize}
+      \item The system shall include SSIs FCU
+      \item The system shall include SolidFlows CGG
+      \item The system shall integrate with WrenAerospaces UAV
+      \item The system shall produce electricity from hydrogen
+            % \item Shall function without external psu %(covered by wren)
+      \item The system shall have a power density comparable to UAVs %(covered by wren)
+\end{itemize}
+
+These are translated to system requirements in a structured manner. Each requirement will adhere to the following structure:
+
+\REQtable{Type-ID}
+
+\begin{itemize}
+      % Wren email
+      \item The system shall be able to deliver 200 W continuous power
+      \item The system shall be able to supply loads varying from 140--220 W
+      \item The system shall be able to deliver power for 13--16 hours
+      \item The mass of the energy storage system should not exceed 2.8 kg
+      \item The mass of the fuel cell system should not exceed 2.2 kg
+      \item The volume of the energy storage system should not exceed 2.5 L
+      \item the diameter of the energy storage system should not exceed 130 mm
+            % Volume and diameter also applicable for fuel cell system?
+      \item The system should be able to operate at altitudes up to 3 km
+      \item The system should be able to operate at speeds up to 21 m/s
+
+            % \item Test results will be recorded and presented in a research report in accordance with Elling \& Andeweg (not this system)
+            % \item The research report shall answer the following research question: `\dots' (not this system)
+\end{itemize}
+
+\subsubsection{Performance Requirements}
+\REQcategory{PERF}
+
+\subsubsection{Operational Requirements}
+\REQcategory{OP}
+
+\subsubsection{Interface Requirements}
+\REQcategory{INT}
+
+\subsubsection{Environmental Requirements}
+\REQcategory{ENV}
+
+\subsubsection{Safety Requirements}
+\REQcategory{SAFE}
+
+% Reliability and Maintainability?
+
+
+% SRS Document:
+
+% Temperature range
+% Humidity range
+% FC efficiency
+% backup battery mission
+% CGG reqs?
+% Drone reqs?
+\newpage
+
+% \subsubsection{Functional Decomposition}
+% Subsystem level Requirements
+\subsection{Subsystem Level Requirements}
+
+
+Based on the mission scenario, a list has been constructed of functions that the system needs to be able to fulfil. Each of these functions will represent a subsystem of the power generation and delivery system. The identified subsystems are as follows:
+\begin{itemize}
+      \item Manage Hydrogen Supply %(FCU)
+      \item Hydrogen Conversion %(FC)
+      \item Intermediate Energy Storage %(LiPo, H2 buffer)
+      \item Electricity Conditioning %(DC/DC, Diode?, LiPo charger?)
+      \item Monitoring and Control %(microcontroller)
+            % \item Ensure Safety
+\end{itemize}
+
+The requirements for each subsystem will be discussed in the following sections. Each subsystem level requirement is either a system level requirement that has been allocated to a specific subsystem, or a requirement derived from a system level requirement.
+
+
+% Functional Decomposition % Functional requirements
+
+% Base function: supply electric power
+% \\Subfunctions:
+
+% \begin{itemize}
+%       \item Manage Hydrogen Supply (FCU)
+%             \begin{itemize}
+%                   \item Receive Hydrogen from CGG
+%                   \item Regulate Hydrogen pressure and flow
+%             \end{itemize}
+%       \item Hydrogen Conversion (FC)
+%             \begin{itemize}
+%                   \item Supply hydrogen to fuel cell
+%                   \item Generate electrical power using fuel cell
+%                   \item Remove fuel cell byproducts
+%             \end{itemize}
+%       \item Intermediate Energy Storage (LiPo, H2 buffer)
+%             \begin{itemize}
+%                   \item Reduce power demand during peak loads
+%                   \item Store excess energy produced by CGG
+%                   \item Monitor energy buffer level
+%                   \item Prevent overcharge/overdischarge of energy buffer
+%                   \item Store Energy for emergency landing
+%             \end{itemize}
+%       \item Electricity Conditioning (DC/DC, Diode?, LiPo charger?)
+%             \begin{itemize}
+%                   \item Regulate output voltage
+%                   \item Regulate output current
+%                   \item Deliver power to host (UAV)
+%                   \item Protect fuel cell from back current
+%                   \item Synchronise fuel cell and other power sources
+%             \end{itemize}
+%       \item Monitoring and Control (microcontroller)
+%             \begin{itemize}
+%                   \item Monitor hydrogen pressure and flow
+%                   \item Monitor fuel cell performance
+%                   \item Monitor energy storage level
+%                   \item Execute control algorithms
+%                   \item Start CGG when required
+%                   \item Communicate system status to host (UAV)
+%             \end{itemize}
+%       \item Ensure Safety
+%             \begin{itemize}
+%                   \item Prevent fuel cell overload
+%                   \item Prevent pressure build-up
+%                   \item Prevent thermal runaway
+%                   \item Execute emergency shutdown
+%             \end{itemize}
+% \end{itemize}
+
+\subsubsection{Hydrogen Supply}
+\subsubsection{Hydrogen Conversion}
+\subsubsection{Intermediate Energy Storage}
+\subsubsection{Electricity Conditioning}
+\subsubsection{Monitoring and Control}
+% \subsubsection{Safety}
+
+
+\newpage

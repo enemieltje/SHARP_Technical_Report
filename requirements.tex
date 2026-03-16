@@ -1,0 +1,137 @@
+\DTLnewdb{requirements}
+
+\newcommand{\REQadd}[7]{
+    \DTLnewrow{requirements}
+    \DTLnewdbentry{requirements}{type}{#1}
+    \DTLnewdbentry{requirements}{id}{#1-#2}
+    \DTLnewdbentry{requirements}{level}{#3}
+    \DTLnewdbentry{requirements}{statement}{#4}
+    \DTLnewdbentry{requirements}{approach}{#5}
+    \DTLnewdbentry{requirements}{verification}{#6}
+    \DTLnewdbentry{requirements}{comment}{#7}
+}
+
+\newcommand{\REQ}[2]{%
+    \DTLfetch{requirements}{id}{#1}{#2}%
+}
+
+\newcommand{\REQtable}[1]{
+
+    \begin{tabularx}{\textwidth}{|r|X|}
+        \hline
+        \rowcolor{lightgray}
+        \REQ{#1}{id}          & \REQ{#1}{statement}\hfill (\REQ{#1}{level}) \\%   & \REQ{#1}{level} \\
+        \hline
+        \cellcolor{lightgray}
+        Proposed Approach     & \REQ{#1}{approach}                          \\
+        \hline
+        \cellcolor{lightgray}
+        Verification Approach & \REQ{#1}{verification}                      \\
+        \hline
+        \cellcolor{lightgray}
+        Comment               & \REQ{#1}{comment}                           \\
+        \hline
+    \end{tabularx}
+}
+
+\newcommand{\REQcategory}[1]{
+    \DTLforeach[\DTLiseq{\type}{#1}]{requirements}
+    {\type=type,\id=id}
+    {
+        \REQtable{\id}%
+    }
+}
+
+\REQadd{Type}{ID}{Category}
+{Requirement Statement}
+{}
+{}
+{}
+
+% Performance Requirements
+\REQadd{PERF}{1}{M}
+{The system shall be able to deliver 200 W continuous power}
+{Ensure fuel cell meets power specifications from manufactures datasheet}
+{Use wattmeter to verify}
+{}
+
+\REQadd{PERF}{2}{M}
+{The system shall be able to supply loads varying from 140--220 W}
+{Use a backup battery to provide power during peak loads}
+{Use motor with propeller as variable load and wattmeter to verify}
+{Variable load profile will be dependant on mission profile. Determine representative load profile with Wren Aerospace.}
+
+% Operational Requirements
+% -- How is it operated?
+% “The product shall be designed to accept control of the viewing function from the ground segment”
+% Runtime
+% mission?
+% Reports?
+\REQadd{OP}{1}{D}
+{The system should be able to deliver power for 13--16 hours}
+{Choose a CGG size appropriate according to calculations}
+{Use mass flow sensor to verify fuel consumption of fuel cell}
+{}
+
+\REQadd{OP}{2}{D} % Physical requirements?
+{The mass of the power generation and feed system should not exceed 5 kg}
+{Divide mass budget over subsystems and select parts that fit said mass budget}
+{Use scale to verify}
+{}
+
+% Interface Requirements
+% fuselage
+% cgg (constant mdot)
+% drone power
+\REQadd{INT}{1}{D}
+{The volume of the energy storage systems should not exceed 2.5 L}
+{Design and select parts that fit in the given volume}
+{Size measurement using calipers or other appropriate measurement devices}
+{Verify with Wren Aerospace if this volume is also valid for the fuel cell system}
+
+\REQadd{INT}{2}{D}
+{The diameter of the energy storage system should not exceed 130 mm}
+{Design and select parts that fit in the given diameter}
+{Size measurement using calipers or other appropriate measurement devices}
+{Verify with Wren Aerospace if this diameter is also valid for the fuel cell system}
+
+\REQadd{INT}{3}{R}
+{The fluid interface with the CGG shall have a maximum pressure of \textbf{XX} bar}
+{Select parts compatible with this maximum pressure}
+{Leakage test with compressed air}
+{Exact value is dependant on buffer volume}
+
+\REQadd{INT}{4}{R}
+{The fluid interface with the CGG shall have a mass flow rate of \textbf{XX} g/min}
+{Control fuel cell to use this mass flow rate of hydrogen using feedback control}
+{Verify using mass flow sensor}
+{Exact value dependant average power, battery size and CGG amount}
+
+\REQadd{INT}{5}{R}
+{The electrical interface with the flight controller shall have a voltage of \textbf{XX} V}
+{Tune DC/DC converter to convert fuel cell output voltage to battery and flight controller voltage}
+{Verify using mass voltmeter}
+{Probably 6S LiPo voltage (18--25.2 V). Confirm with Wren}
+
+% Environmental Requirements
+% altitude
+\REQadd{ENV}{1}{D}
+{The system should be able to operate at altitudes up to 3 km}
+{Verify fuel cell performance at appropriate atmospheric conditions}
+{}
+{Split up in temperature, pressure and oxygen content requirements?}
+
+\REQadd{ENV}{2}{D}
+{The system should be able to operate at speeds up to 21 m/s}
+{Verify fuel cell performance at appropriate atmospheric conditions}
+{}
+{Translate to spec demands for fuel cell}
+
+
+% Safety Requirements
+% h2
+\REQadd{SAFE}{1}{R}
+{The system shall have a total hydrogen leakage lower than \textbf{XX}}
+{Design using COTS components rated for appropriate pressure}
+{Verify with leakage test}
+{}

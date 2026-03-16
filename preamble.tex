@@ -21,6 +21,7 @@
 % Headers and footers
 \usepackage{fancyhdr}
 \usepackage{lastpage}
+\usepackage{appendix}
 \pagestyle{fancy}
 \fancyhf{}
 \rfoot{\thepage}
@@ -28,7 +29,15 @@
 % Tables
 \usepackage{tabularx,booktabs,array,longtable,calc}
 \usepackage{footnote}
-% \makesavenoteenv{longtable}
+\usepackage{datatool}
+\usepackage{makecell}
+\renewcommand{\arraystretch}{1.5}
+\usepackage[table]{xcolor}
+
+% Lists
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
+\renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}}
 
 % Graphics
 \usepackage{graphicx}
@@ -40,6 +49,7 @@
 \makeatletter
 \def\fps@figure{htbp} % default figure placement
 \makeatother
+\usepackage{subcaption}
 
 % Links
 \usepackage{hyperref}
@@ -60,7 +70,15 @@
 \usepackage{titlesec}
 \usepackage{iftex}
 \usepackage{subfiles}
+\usepackage{pdflscape}
 \usepackage[normalem]{ulem} % strikethrough support
+\usepackage{ifthen}
+\usepackage{glossaries-extra}
+\setabbreviationstyle[acronym]{long-short}
+% \setacronymstyle{long-short}
+% \makeglossaries
+\usepackage{datetime}
+\ddmmyyyydate
 
 % Optional enhancements
 \IfFileExists{microtype.sty}{\usepackage{microtype}}{}
@@ -98,27 +116,17 @@
 \fancyhead[L]{%
   \renewcommand{\arraystretch}{1.4}
   \begin{tabularx}{\textwidth}{p{3cm}Xp{4cm}}
-    % \hline
-    % \begin{figure}[h]
     \vspace{0mm}
     \includegraphics[width=3cm]{media/stellar_space_logo.png}
-    % \end{figure}
-    &
+     &
     \vspace{0mm}
     \includegraphics[width=5.5cm]{media/inholland_logo.png}
-    &
+     &
     \vspace{0mm}
     Document: Project Plan \newline
     Issue: 1.0 \newline
     Date: \today\newline
     Page: \thepage~of~\pageref{LastPage} \\
-    % \hline
-    % Security class: TBD &
-    % Model: TBD &
-    % Work package: N/A \newline
-    % Configuration ID: N/A \newline
-    % Template issue: 1.2 \\
-    % \hline
   \end{tabularx}%
 }
 

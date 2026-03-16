@@ -1,0 +1,46 @@
+\section{Costs and Benefits}
+
+% Costs
+% \begin{itemize}
+%     \item Labour hours
+%     \item Test bench materials
+%     \item Fuel cell system
+%     \item Hydrogen fuel
+%     \item Safety equipment/education
+%     \item Drone prototype manufacturing and testing (if applicable)
+% \end{itemize}
+
+% Benefits
+% \begin{itemize}
+%     \item Practical testing environment for SSI valve
+%     \item Sellable research results
+%     \item Practical approach to electric flight using hydrogen CGG
+% \end{itemize}
+
+During the SHARP-PS project, a hydrogen based power generation and delivery system will be developed that can be incorporated into a UAV. The costs of this power system will depend on the scale of the mission scenario. As of the writing of this document, the mission scenario has not yet been determined. As stated in section 4 Scope, determining this mission scenario is not part of SHARP-PS, but will instead be determined by Stellar Space Industries.
+
+To help with choosing the scale of the mission scenario, table~\ref{table:costs} a rough cost overview has been created that includes three different scales of available COTS drones, and the fuel cell that would be required to power them. Note that the values in table~\ref{table:costs} are not exact values and do not represent the total cost of the project, they do however provide insight into how the scale options compare and the order of magnitude of the cost.
+
+The COTS drones and fuel cells used for this analysis are from DJI and H2Planet respectively. \cite{dji}, \cite{h2planet}
+
+\begin{table}[htp]
+    \begin{tabularx}{\textwidth}{lXXX}
+        \toprule
+                         & \textbf{Small} & \textbf{Medium} & \textbf{Large}  \\
+        \midrule
+        Model            & DJI air        & DJI Inspire     & DJI Matrice 400 \\
+        Power            & 100 W          & 230 W           & 1.2 kW          \\
+        Drone Weight     & 0.7 kg         & 4 kg            & 15 kg           \\
+        Fuel Cell Weight & 0.6 kg         & 1 kg            & 2--6 kg         \\
+        \midrule
+        Drone Cost       & €1,000         & €15,000         & quote           \\
+        Fuel Cell Cost   & €1,500         & €3,000          & €12,000         \\
+        Total Cost       & €2,500         & €18,000         & > €30,000       \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Cost overview of three scales of drone and fuel cell combinations}
+    \label{table:costs}
+\end{table}
+
+
+\newpage
