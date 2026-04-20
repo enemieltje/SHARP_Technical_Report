@@ -1,5 +1,5 @@
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric, arrows}
+\usetikzlibrary{shapes.geometric, arrows, arrows.meta, positioning}
 
 \tikzstyle{startstop} = [rectangle, rounded corners,
 minimum width=3cm,
@@ -9,7 +9,7 @@ draw=black,
 fill=red!30]
 
 \tikzstyle{io} = [trapezium,
-trapezium stretches=true, % A later addition
+trapezium stretches body=true, % A later addition
 trapezium left angle=70,
 trapezium right angle=110,
 minimum width=3cm,
@@ -18,7 +18,7 @@ text width = 4cm,
 draw=black, fill=blue!30]
 
 \tikzstyle{sensor} = [trapezium,
-trapezium stretches=true, % A later addition
+trapezium stretches body=true, % A later addition
 trapezium left angle=110,
 trapezium right angle=70,
 minimum width=3cm,

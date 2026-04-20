@@ -5,21 +5,56 @@ TBD
 \begin{table}[htp]
     \begin{tabularx}{\textwidth}{|l|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}
         \hline
-        \textbf{Subsystem} & \textbf{Option 1} & \textbf{Option 2} & \textbf{Option 3}      \\
+        \textbf{Subsystem} & \textbf{Option 1}     & \textbf{Option 2}           & \textbf{Option 3}             \\
         \hline
-        Fuel Cell          & 200 W             & 800 W             &                        \\
+        Fuel Cell          & 200 W                 & 800 W                       &                               \\
         \hline
-        CGG Amount         & 1                 & 2                 & many                   \\
+        CGG Amount         & 1                     & 2                           & many                          \\
         \hline
-        CGG Rate           & min               & mid               & max                    \\
+        CGG Rate           & min                   & mid                         & max                           \\
         \hline
-        Buffer Volume      & CGG internal      & separate          &                        \\
+        Battery Size       & 200 kJ                & 500 kJ                      & 1000 kJ                       \\
         \hline
-        Buffer Pressure    & 1.5 Bar           & $\sim$ 4 Bar      & $\sim$ 40 Bar          \\
+        Buffer Volume      & CGG internal          & separate                    &                               \\
         \hline
-        Current Regulator  & On-Off Relay      & PWM Relay         & Linear current limiter \\
+        Buffer Pressure    & FC pressure (1.5 Bar) & Low Pressure ($\sim$ 4 Bar) & High Pressure ($\sim$ 40 Bar) \\
+        \hline
+        Current Regulator  & On-Off Relay          & PWM Relay                   & Linear current limiter        \\
         \hline
     \end{tabularx}
 \end{table}
 
-\newpage
+Changes with respect to Architecture 1 are highlighted in green.
+\newcommand{\new}[1]{\cellcolor{green!80!yellow!50}\emph{#1}}
+\begin{table}[htp]
+    \begin{tabularx}{\textwidth}{l>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X}
+        \toprule
+                                   & \textbf{Architecture 1} & \textbf{Architecture 2} & \textbf{Architecture 3} & \textbf{Architecture 4} & \textbf{Architecture 5} & \textbf{Architecture 6} \\
+        \midrule
+        \textbf{Fuel Cell}         & 200 W                   & 200 W                   & 200 W                   & 200 W                   & 200 W                   & 200 W                   \\
+        \textbf{CGG Amount}        & 1                       & 1                       & 1                       & \new{many}              & 1                       & 1                       \\
+        \textbf{CGG Rate}          & min                     & min                     & min                     & \new{max}               & \new{mid}               & \new{mid}               \\
+        \textbf{Battery Size}      & 200 kJ                  & 200 kJ                  & 200 kJ                  & 200 kJ                  & \new{500 kJ}            & \new{1000 kJ}           \\
+        \textbf{Buffer Volume}     & separate                & \new{CGG internal}      & separate                & separate                & separate                & separate                \\
+        \textbf{Buffer Pressure}   & 1.5 Bar                 & \new{4 Bar}             & 1.5 Bar                 & 1.5 Bar                 & 1.5 Bar                 & 1.5 Bar                 \\
+        \textbf{Current Regulator} & PWM Relay               & PWM Relay               & \new{On-Off Relay}      & PWM Relay               & PWM Relay               & PWM Relay               \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\textbf{arch 2:}
+\\weight of 1L tank vs weight of pressure regulator
+
+\textbf{arch 3:}
+\\max switching frequency of fc, DC/DC
+\\effectiveness of smoothing capacitor
+
+\textbf{arch 4:}
+\\required flexibility
+\\weight efficiency of small vs large cggs
+
+\textbf{arch 5/6:}
+\\required flexibility
+\\required mission time
+\\required energy for (emergency) landing
+

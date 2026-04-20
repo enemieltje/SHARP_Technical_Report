@@ -61,6 +61,21 @@
 {Use motor with propeller as variable load and wattmeter to verify}
 {Variable load profile will be dependant on mission profile. Determine representative load profile with Wren Aerospace.}
 
+% \REQadd{PERF}{3}{M}
+% {The system shall provide an output voltage within ±5\% of nominal (INT-5)}
+% {Design appropriate DC/DC regulation and filtering}
+% {Verify using oscilloscope and voltmeter under varying loads}
+% {}
+
+\REQadd{PERF}{3}{M}
+% {The system shall respond to load transients within \textbf{XX} ms}
+{The system response time to load changes shall be identified}
+{Use LiPo battery buffering}
+{Verify using oscilloscope and step load changes}
+{Response time should be compatible with flight controller.}
+% System load response time shall be identified
+
+
 % Operational Requirements
 % -- How is it operated?
 % “The product shall be designed to accept control of the viewing function from the ground segment”
@@ -79,59 +94,132 @@
 {Use scale to verify}
 {}
 
+\REQadd{OP}{3}{M}
+{The system shall include a control system to regulate hydrogen mass flow}
+{Implement feedback loop using mass flow sensor}
+{Verify by step response testing}
+{}
+
+\REQadd{OP}{4}{M}
+{The system shall support controlled startup and shutdown procedures}
+{Select a fuel cell with controller and/or develop startup/shutdown sequence logic}
+{Verify through repeated cycling tests}
+{Most FCs come with a controller that does this}
+
+\REQadd{OP}{5}{M}
+{The system shall provide minimal telemetry data including fuel content to the flight controller}
+{Integrate sensors and communication interface}
+{Verify through data logging}
+{Translate the fuel content to a `battery percentage' which can be communicated to the flight controller}
+
+\REQadd{OP}{6}{O}
+{The system may provide additional telemetry data to the flight controller}
+{Integrate sensors and communication interface}
+{Verify through data logging}
+{}
+
 % Interface Requirements
 % fuselage
 % cgg (constant mdot)
 % drone power
 \REQadd{INT}{1}{D}
-{The volume of the energy storage systems should not exceed 2.5 L}
+{The volume of the energy storage systems should not exceed 2.5~L}
 {Design and select parts that fit in the given volume}
 {Size measurement using calipers or other appropriate measurement devices}
 {Verify with Wren Aerospace if this volume is also valid for the fuel cell system}
 
 \REQadd{INT}{2}{D}
-{The diameter of the energy storage system should not exceed 130 mm}
+{The diameter of the energy storage system should not exceed 130~mm}
 {Design and select parts that fit in the given diameter}
 {Size measurement using calipers or other appropriate measurement devices}
 {Verify with Wren Aerospace if this diameter is also valid for the fuel cell system}
 
-\REQadd{INT}{3}{R}
-{The fluid interface with the CGG shall have a maximum pressure of \textbf{XX} bar}
-{Select parts compatible with this maximum pressure}
+\REQadd{INT}{3}{M}
+{The fluid interface with the CGG shall normal operating pressure of 3~bar}
+{Select parts compatible with this pressure}
 {Leakage test with compressed air}
-{Exact value is dependant on buffer volume}
+{Exact value is dependant on buffer volume, 0.1 L ---> 3 bar}
+% Split normal operating pressure and max burst pressure (~2.5 x normal) bespreken met Joost/Toby
 
-\REQadd{INT}{4}{R}
-{The fluid interface with the CGG shall have a mass flow rate of \textbf{XX} g/min}
+\REQadd{INT}{4}{M}
+{The fluid interface with the CGG shall accept a mass flow rate of 0.18--0.27~g/min}
 {Control fuel cell to use this mass flow rate of hydrogen using feedback control}
 {Verify using mass flow sensor}
-{Exact value dependant average power, battery size and CGG amount}
+{}
+% Fill in big range for this system, actual value may be whatever
 
-\REQadd{INT}{5}{R}
-{The electrical interface with the flight controller shall have a voltage of \textbf{XX} V}
+\REQadd{INT}{5}{M}
+{The electrical interface with the flight controller shall have a voltage of \textbf{XX}~V}
 {Tune DC/DC converter to convert fuel cell output voltage to battery and flight controller voltage}
 {Verify using mass voltmeter}
 {Probably 6S LiPo voltage (18--25.2 V). Confirm with Wren}
+% Ask Wren
+
+\REQadd{INT}{6}{D}
+{The system shall include standard electrical connectors compatible with the drone platform}
+{Select connectors per platform specification}
+{Visual and mechanical inspection}
+{}
+% Ask Wren
 
 % Environmental Requirements
-% altitude
 \REQadd{ENV}{1}{D}
-{The system should be able to operate at altitudes up to 3 km}
-{Verify fuel cell performance at appropriate atmospheric conditions}
-{}
-{Split up in temperature, pressure and oxygen content requirements?}
-
-\REQadd{ENV}{2}{D}
-{The system should be able to operate at speeds up to 21 m/s}
+{The system should be able to operate at speeds up to 21~m/s}
 {Verify fuel cell performance at appropriate atmospheric conditions}
 {}
 {Translate to spec demands for fuel cell}
 
+\REQadd{ENV}{2}{D}
+{The system shall operate at a temperature between -35~°C and 25~°C}
+{Select components rated for temperature range}
+{Verify in environmental chamber}
+{Average temperature at 3 km (-4.5 °C) ±30 °C}
+% Avg standard atm +- 30 deg
+
+\REQadd{ENV}{3}{D}
+{The system shall operate at ambient pressures of 0.6--0.8~bar}
+{Validate fuel cell air supply and performance}
+{Test under reduced pressure conditions}
+{Average pressure at 3 km (0.7 Bar) ±0.1 Bar}
+
+\REQadd{ENV}{4}{D}
+{The system should tolerate relative humidity levels between \textbf{50--80}\%}
+{Validate fuel cell datasheet and performance}
+{Verify under controlled humidity conditions}
+{Typical Dutch weather, may be adjusted for all weather applications}
+
 
 % Safety Requirements
 % h2
-\REQadd{SAFE}{1}{R}
+\REQadd{SAFE}{1}{M}
 {The system shall have a total hydrogen leakage lower than \textbf{XX}}
 {Design using COTS components rated for appropriate pressure}
 {Verify with leakage test}
 {}
+% derive from FCU leakage
+
+\REQadd{SAFE}{2}{M}
+{The sytem shall have a maximum burst pressure of \textbf{12?}~bar}
+{Select parts compatible with this burst pressure}
+{Verify with manufacturer datasheets, potentially also a burst test with compressed air}
+{Value should be normal operation pressure * safety factor (3 * 4 = 12)}
+
+\REQadd{SAFE}{3}{M}
+{The system shall include overpressure protection}
+{Integrate pressure relief valve}
+{Verify using controlled pressure increase test}
+{Value should be lower than burst pressure}
+
+\REQadd{SAFE}{4}{M}
+{Expected hydrogen leakage should be vented along a safe path}
+{Connect pressure relief and purge output to tube that leads away from people}
+{Verify using visual inspection}
+{}
+% expected h2 leakage vented safely
+
+\REQadd{SAFE}{5}{M}
+{The system should always be operated in appropriately ventilated areas or outside}
+{Always work outside when working with hydrogen}
+{Verify using visual inspection}
+{}
+% System should always be operated outside/ventilated space

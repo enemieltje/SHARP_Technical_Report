@@ -1,0 +1,206 @@
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, arrows.meta, positioning}
+
+% Spring
+\newcommand{\tikzspring}[2]{
+    \draw[rotate=#1, thick, line join=bevel] (#2)
+    -- +(0,0.25)
+    -- +(0.05,0.5) -- +(0.15,0)
+    -- +(0.25,0.5) -- +(0.35,0)
+    -- +(0.45,0.5) -- +(0.55,0) -- +(0.6,0.25);
+
+}
+
+% Pressure Regulator
+\tikzstyle{pressure regulator} = [rectangle,
+minimum width=1cm,
+minimum height=1cm,
+append after command={
+        \pgfextra{
+            % \draw[help lines] (\tikzlastnode.center) ++(-1, -1) grid ++(2,2);
+            \draw[thick, densely dashed] (\tikzlastnode.east) -- +(0.25,0.25) -- +(0.25,1) -- +(-0.75,1) -- +(-0.75,0);
+            \draw[thick, fill=white] (\tikzlastnode.south west) -- +(1,0) -- +(1,1) -- +(0,1) -- +(0,0);
+            \draw[->, thick, >=latex] (\tikzlastnode.west) -- (\tikzlastnode.east);
+            \tikzspring{-90}{\tikzlastnode.south west}%
+            \draw[->, thick, >=latex] (\tikzlastnode.south west) ++(-0.25, -0.175) -- +(1,-0.25);
+        }
+    }
+]
+
+% Orifice
+\tikzstyle{orifice} = [rectangle,
+minimum width=1cm,
+minimum height=0.6cm,
+append after command={
+        \pgfextra{
+            % \draw[help lines] (\tikzlastnode.center) ++(-1, -1) grid ++(2,2);
+            \draw[thick] (\tikzlastnode.west) -- (\tikzlastnode.east);
+            \draw[thick] (\tikzlastnode.north) ++(-0.38,0) arc (220:320:0.5);
+            \draw[thick] (\tikzlastnode.south) ++(-0.38,0) arc (140:40:0.5);
+            \draw[->, thick, >=latex] (\tikzlastnode.center) +(-0.2, -0.5) -- +(0.2,0.5);
+        }
+    }
+]
+
+% Volume
+\tikzstyle{volume} = [rectangle,
+minimum width=2cm,
+minimum height=1cm,
+append after command={
+        \pgfextra{
+            % \draw[help lines] (\tikzlastnode.center) ++(-1, -1) grid ++(2,2);
+            \draw[thick, fill=white] (\tikzlastnode.south) ++(-0.5,0) -- ++(1,0) arc (-90:90:0.5) -- ++(-1,0) arc (90:270:0.5);
+        }
+    }
+]
+
+% Manual Valve
+\tikzstyle{manual valve} = [rectangle,
+minimum width=1cm,
+minimum height=1cm,
+append after command={
+        \pgfextra{
+            % \draw[help lines] (\tikzlastnode.center) ++(-1, -1) grid ++(2,2);
+            \draw[thick, fill=white] (\tikzlastnode.south west) -- ++(1, 0) -- ++(0, 2) -- ++(-1, 0) -- ++(0, -2);
+            \draw[thick] (\tikzlastnode.north west) -- (\tikzlastnode.north east);
+            \draw[thick, <->, >=latex] (\tikzlastnode.west) -- (\tikzlastnode.east);
+            \draw[thick] (\tikzlastnode.north west) ++(0, 0.5) -- ++(0.15, 0) ++(0, 0.1) -- ++(0, -0.2);
+            \draw[thick] (\tikzlastnode.north east) ++(0, 0.5) -- ++(-0.15, 0) ++(0, 0.1) -- ++(0, -0.2);
+            \draw[thick] (\tikzlastnode.south west) ++(0.05,0) -- ++(0, -0.5) ++(-0.05,0) -- ++(0.5,0) ++(-0.05,0) -- ++(0, 0.5);
+        }
+    }
+]
+
+% 5/2 Valve
+\tikzstyle{5/2 valve} = [rectangle,
+minimum width=1cm,
+minimum height=0.5cm,
+append after command={
+        \pgfextra{
+            % \draw[help lines] (\tikzlastnode.center) ++(-1, -1) grid ++(2,2);
+            % Boxes
+            \draw[thick, fill=white] (\tikzlastnode.west) ++(0, -0.5) -- ++(1, 0) -- ++(0, 2) -- ++(-1, 0) -- ++(0, -2);
+            \draw[thick] (\tikzlastnode.west)  ++(0, 0.5)-- ++(1, 0);
+            % Arrows
+            \draw[thick, ->, >=latex] (\tikzlastnode.west) ++(0, 1) -- ++(1, 0.25);
+            \draw[thick, ->, >=latex] (\tikzlastnode.east) ++(0, 0.25) -- ++(-1, 0);
+            \draw[thick, ->, >=latex] (\tikzlastnode.west) -- ++(1, -0.25);
+            \draw[thick, ->, >=latex] (\tikzlastnode.east) ++(0, 0.75) -- ++(-1, 0);
+            % Plugs
+            \draw[thick] (\tikzlastnode.west) ++(0, -0.25) -- ++(0.15, 0) ++(0, 0.1) -- ++(0, -0.2);
+            \draw[thick] (\tikzlastnode.west) ++(0, 1.25) -- ++(0.15, 0) ++(0, 0.1) -- ++(0, -0.2);
+            % Actuators
+            \draw[thick] (\tikzlastnode.center) ++(-0.25,-0.5) -- ++(-0.25,-0.5) -- ++(0.5,0) -- ++(-0.25,0.5);
+            \draw[thick] (\tikzlastnode.center) ++(-0.25,1.5) -- ++(-0.25,0.5) -- ++(0.5,0) -- ++(-0.25,-0.5);
+            \draw[thick] (\tikzlastnode.west) ++(0, 1.5) -- ++(0, 1) -- ++(0.5, 0) -- ++(0, -1);
+            \draw[thick] (\tikzlastnode.west) ++(0, 2.35) -- ++(0.5, -0.2);
+        }
+    }
+]
+
+% Volume
+\tikzstyle{pressure sensor} = [rectangle,
+minimum width=1cm,
+minimum height=1cm,
+append after command={
+        \pgfextra{
+            % \draw[help lines] (\tikzlastnode.center) ++(-1, -1) grid ++(2,2);
+            % Air lines
+            \draw[thick] (\tikzlastnode.west) -- ++(1, 0);
+            \draw[thick] (\tikzlastnode.center) -- ++(0, 0.5);
+            % Box
+            \draw[thick, fill=white] (\tikzlastnode.north east) -- ++(0, 1) -- ++(-1, 0) -- ++(0, -1) -- ++(1, 0) -- ++(-1, 1);
+            % P
+            \draw[thick] (\tikzlastnode.center) ++(-0.3, 1) -- ++(0.1, 0) arc (90:-90:0.1) -- ++(-0.1, 0) ++ (0, 0.2) -- ++(0, -0.4);
+            % n
+            \draw[thick] (\tikzlastnode.center) ++(0.1, 1.1) -- ++(0,0.15) arc (180:0:0.15) -- ++(0,-0.15);
+        }
+    }
+]
+
+% Block
+\tikzstyle{block} = [rectangle,
+minimum width=1cm,
+minimum height=1cm,
+append after command={
+        \pgfextra{
+            % \draw[help lines] (\tikzlastnode.center) ++(-1, -1) grid ++(2,2);
+            \draw[thick] (\tikzlastnode.west) -- ++(0.15, 0) ++(0, 0.1) -- ++(0, -0.2);
+        }
+    }
+]
+
+% \begin{tikzpicture}[node distance=2 cm]
+%     \node[pressure regulator] (regulator1) {};
+%     \node[manual valve, right of=regulator1] (valve1) {};
+
+%     \node[orifice, right of=valve1] (orifice1) {};
+%     \node[volume, right of=orifice1] (volume1) {};
+%     \node[pressure sensor, right of=volume1] (sensor1) {};
+
+%     \node[pressure regulator, right of=sensor1] (regulator2) {};
+
+%     \node[5/2 valve, right of=regulator2,yshift=2cm, xshift=1cm] (purge valve) {};
+%     \node[5/2 valve, right of=regulator2,yshift=-2cm, xshift=1cm] (normal valve) {};
+%     \node[block, right of=purge valve, yshift=0.25cm, xshift=-1cm] (purge block) {};
+%     \node[block, right of=normal valve, yshift=0.25cm, xshift=-1cm] (normal block) {};
+%     \node[orifice, right of=purge valve, yshift=-0.25cm] (purge orifice) {};
+%     \node[orifice, right of=normal valve, yshift=-0.25cm] (normal orifice) {};
+
+%     % \draw[help lines] (-3, 0) grid (3,-6);
+%     \draw [thick] (-1,0) -- (regulator1);
+%     \draw [thick] (regulator1) -- (valve1);
+%     \draw [thick] (valve1) -- (orifice1);
+%     \draw [thick] (orifice1) -- (volume1);
+%     \draw [thick] (volume1) -- (sensor1);
+%     \draw [thick] (sensor1) -- (regulator2);
+%     \draw [thick] (regulator2) -- ++(1.5,0) |- (purge valve);
+%     \draw [thick] (regulator2) -- ++(1.5,0) |- (normal valve);
+%     \draw [thick] (purge valve) ++(0.5, -0.25)-- (purge orifice);
+%     \draw [thick] (normal valve) ++(0.5, -0.25)-- (normal orifice);
+% \end{tikzpicture}%
+
+% Air Supply
+\newcommand{\airsupply}[2][airsupply]{
+    \node (origin) {};
+
+    \node[pressure regulator, right of=#2] (regulator1) {};
+    \node[manual valve, right of=regulator1] (valve1) {};
+    \node (#1) at (valve1) {};
+
+    \draw [thick] (#2) -- (regulator1);
+    \draw [thick] (regulator1) -- (valve1);
+}
+
+% CGG Equivalent
+\newcommand{\aircgg}[2][aircgg]{
+    \node (origin) {};
+
+    \node[orifice, right of=#2] (orifice1) {};
+    \node[volume, right of=orifice1] (volume1) {};
+    \node[pressure sensor, right of=volume1] (sensor1) {};
+    \node (#1) at (sensor1) {};
+
+    \draw [thick] (#2) -- (orifice1);
+    \draw [thick] (orifice1) -- (volume1);
+    \draw [thick] (volume1) -- (sensor1);
+}
+
+% FC Equivalent
+\newcommand{\airfc}[2][airfc]{
+    \node (origin) {};
+
+    \node[5/2 valve, right of=#2, yshift=2cm, xshift=1cm] (purge valve) {};
+    \node[5/2 valve, right of=#2, yshift=-2cm, xshift=1cm] (normal valve) {};
+    \node[block, right of=purge valve, yshift=0.25cm, xshift=-1cm] (purge block) {};
+    \node[block, right of=normal valve, yshift=0.25cm, xshift=-1cm] (normal block) {};
+    \node[orifice, right of=purge valve, yshift=-0.25cm] (purge orifice) {};
+    \node[orifice, right of=normal valve, yshift=-0.25cm] (normal orifice) {};
+    \node (#1) at (normal orifice) {};
+
+
+    \draw [thick] (#2) -- ++(1.5,0) |- (purge valve);
+    \draw [thick] (#2) -- ++(1.5,0) |- (normal valve);
+    \draw [thick] (purge valve) ++(0.5, -0.25)-- (purge orifice);
+    \draw [thick] (normal valve) ++(0.5, -0.25)-- (normal orifice);
+}

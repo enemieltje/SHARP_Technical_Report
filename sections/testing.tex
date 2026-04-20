@@ -1,112 +1,324 @@
 \chapter{Testing}
-
+TBD
 \begin{figure}[htp]
-  \centering
-  \begin{tikzpicture}[node distance=2 cm]
-    \node (in1) [io] {Input: Hydrogen Gas Storage};
-    \node (pro1) [process, below of=in1] {Pressure Reducer};
-    \node (pro2) [sensor, below of=pro1] {Mass Flow Sensor};
-    \node (pro3) [process, below of=pro2] {Flow Control Unit};
-    \node (pro4) [sensor, below of=pro3, yshift=-1cm] {Mass Flow Sensor};
-    \node (pro5) [sensor, below of=pro3, yshift=0.5cm, xshift=6cm] {Pressure Sensor};
-    \node (pro6) [process, below of=pro4] {40 micron filter};
-    \node (pro7) [process, below of=pro6] {Fuel Cell};
-    \node (out1) [io, below of=pro7] {Output: 800W};
+    \centering
+    \scalebox{0.8}{
+        \begin{tikzpicture}[node distance=2 cm]
+            % \draw[help lines] (0, -3) grid (10,3);
+            \airsupply{origin}
+            \draw[thick, densely dotted] (1, -1.5) -| +(4, 3.5) -| ++(0, 0);
+            \node (airsupplytext) at (3, -2) {Air Supply};
 
-    \draw [arrow] (in1) -- node[anchor=east] {High pressure} (pro1);
-    \draw [arrow] (pro1) -- node[anchor=east] {Low pressure} (pro2);
-    \draw [arrow] (pro2) -- (pro3);
-    \draw [arrow] (pro3) -- node[anchor=east] {0.9 Bar} (pro4);
-    \draw [arrow] (pro3) |- (pro5);
-    \draw [arrow] (pro5) |- (pro3);
-    \draw [arrow] (pro4) -- (pro6);
-    \draw [arrow] (pro6) -- (pro7);
-    \draw [arrow] (pro7) -- (out1);
-  \end{tikzpicture}
+            \aircgg{airsupply}
+            \draw[thick, densely dotted] (aircgg) ++(0.75, -1.5) -| +(-5.5, 3.5) -| ++(0, 0);
+            \node (airsupplytext) at (8, -2) {CGG Air Equivalent};
 
-  \caption{Hydrogen Test Setup}
-  \label{fc:h2 test}
+            \node[pressure regulator, right of=aircgg] (pregulator) {};
+            \draw[thick] (aircgg) -- (pregulator);
+
+            \airfc{pregulator}
+            \draw[thick, densely dotted] (airfc) ++(0.75, -1) -| +(-4.5, 8) -| ++(0, 0);
+            \node (airsupplytext) at (15.5, -4) {Fuel Cell Air Equivalent};
+
+        \end{tikzpicture}
+    }
+    \caption{Air Test Setup}%
+    \label{fig:air test}%
 \end{figure}
 
-\begin{figure}[htp]
-  \centering
-  \begin{tikzpicture}[node distance=2 cm]
-    \node (in1) [io] {Input: 800W};
-    \node (pro1) [sensor, below of=in1] {Amp Meter};
-    \node (pro2) [process, below of=pro1] {(Ideal) Diode};
-    \node (pro3) [process, below of=pro1, xshift=6cm, yshift=-1.5cm] {Battery};
-    \node (pro4) [sensor, below of=pro3, yshift=-1cm] {Volt Meter};
-    \node (pro5) [sensor, below of=pro2, yshift=-1cm] {Amp Meter};
-    \node (pro6) [process, below of=pro5, yshift=-1cm] {ESC};
-    \node (pro7) [process, below of=pro6] {Motor};
-    \node (pro8) [process, below of=pro7] {Propeller};
-    \node (pro9) [sensor, below of=pro6, xshift=6cm] {Force Sensor};
-    \node (out1) [io, below of=pro8] {Output: Thrust};
 
-    \draw [arrow] (in1) -- (pro1);
-    \draw [arrow] (pro1) -- (pro2);
-    \draw [arrow] (pro2) |- (pro3);
-    \draw [arrow] (pro3) -| (pro5);
-    \draw [arrow] (pro4) -| (pro6);
-    \draw [arrow] (pro5) -- (pro6);
-    \draw [arrow] (pro6) -- (pro7);
-    \draw [arrow] (pro7) -- (pro8);
-    \draw [arrow] (pro7) -- (pro9);
-    \draw [arrow] (pro8) -- (out1);
-  \end{tikzpicture}
 
-  \caption{Electronics Test Setup}
-  \label{fc:electric test}
-\end{figure}
+Goals of various tests:
+\begin{itemize}
+    \item Compressed Air Equivalent Test
+          \begin{itemize}
+              \item Explore unknown risks
+              \item Verify expected system behaviour
+              \item Verify simulation results
+              \item Compare control strategies
+          \end{itemize}
+
+    \item FCU Pressure test
+          \begin{itemize}
+              \item Verify consistency of FCU output pressure
+          \end{itemize}
+
+    \item FCU mass flow test
+          \begin{itemize}
+              \item Verify consistency of FCU output mass flow
+              \item Verify leakage of FCU
+          \end{itemize}
+
+    \item Gas supply test
+          \begin{itemize}
+              \item Verify consistency of gas pressure during purge events
+              \item Verify consistency of gas mass flow during purge events
+              \item Verify total leakage of gas supply system
+          \end{itemize}
+
+    \item Fuel Cell test
+          \begin{itemize}
+              \item Verify the fuel cell is working normally
+              \item Verify the fuel cell output voltage
+              \item Verify the fuel cell output power
+              \item Verify the fuel cell fuel consumption
+          \end{itemize}
+
+    \item Propulsion test
+          \begin{itemize}
+              \item Verify the maximum thrust
+              \item Verify the maximum power draw
+              \item Verify the relation between input power and thrust output
+          \end{itemize}
+
+    \item Hybrid Battery test
+          \begin{itemize}
+              \item Verify the battery cannot back-feed power into the fuel cell
+              \item Verify output power of hybrid system
+              \item Verify output voltage of hybrid system
+          \end{itemize}
+
+    \item Integration test
+          \begin{itemize}
+              \item Verify all individually tested components behave as expected when integrated into one system
+              \item Verify relation between fuel consumption and thrust output
+          \end{itemize}
+\end{itemize}
 
 \clearpage
+\section{Compressed Air Equivalent System}
+TBD
 
+Goals of compressed air equivalent tests:
 \begin{itemize}
-  \item FCU Pressure test
-        \begin{itemize}
-          \item Verify consistency of FCU output pressure
-        \end{itemize}
-
-  \item FCU mass flow test
-        \begin{itemize}
-          \item Verify consistency of FCU output mass flow
-          \item Verify leakage of FCU
-        \end{itemize}
-
-  \item Gas supply test
-        \begin{itemize}
-          \item Verify consistency of gas pressure during purge events
-          \item Verify consistency of gas mass flow during purge events
-          \item Verify total leakage of gas supply system
-        \end{itemize}
-
-  \item Fuel Cell test
-        \begin{itemize}
-          \item Verify the fuel cell is working normally
-          \item Verify the fuel cell output voltage
-          \item Verify the fuel cell output power
-          \item Verify the fuel cell fuel consumption
-        \end{itemize}
-
-  \item Propulsion test
-        \begin{itemize}
-          \item Verify the maximum thrust
-          \item Verify the maximum power draw
-          \item Verify the relation between input power and thrust output
-        \end{itemize}
-
-  \item Hybrid Battery test
-        \begin{itemize}
-          \item Verify the battery cannot back-feed power into the fuel cell
-          \item Verify output power of hybrid system
-          \item Verify output voltage of hybrid system
-        \end{itemize}
-
-  \item Integration test
-        \begin{itemize}
-          \item Verify all individually tested components behave as expected when integrated into one system
-          \item Verify relation between fuel consumption and thrust output
-        \end{itemize}
+    \item Explore unknown risks
+    \item Verify expected system behaviour
+    \item Verify simulation results
+    \item Compare control strategies
 \end{itemize}
+
+\subsection{Fuel Supply Regulator}
+TBD
+
+\begin{figure}[htp]
+    \begin{subfigure}{0.5\textwidth}%
+        \centering%
+        \begin{tikzpicture}[node distance=2 cm]
+            \node (in) [io] {Input: CGG Air Equivalent};
+            \node (valve) [process, below of=in] {Stellar Space FCU};
+            \node (out) [io, below of=valve] {Output: Fuel Cell Air Equivalent};
+
+            \draw [arrow] (in) -- node[anchor=east] {0.35--3 Bar} (valve);
+            \draw [arrow] (valve) -- node[anchor=east] {0.35--0.5 Bar} (out);
+        \end{tikzpicture}%
+        \caption{FCU}%
+        \label{fc:fcu}%
+    \end{subfigure}%
+    \hfill%
+    \begin{subfigure}{0.5\textwidth}%
+        \centering%
+        \begin{tikzpicture}[node distance=2 cm]
+            \node (in) [io] {Input: CGG Air Equivalent};
+            \node (valve) [process, below of=in] {Pressure Regulator};
+            \node (out) [io, below of=valve] {Output: Fuel Cell Air Equivalent};
+
+            \draw [arrow] (in) -- node[anchor=east] {0.35--3 Bar} (valve);
+            \draw [arrow] (valve) -- node[anchor=east] {0.35--0.5 Bar} (out);
+        \end{tikzpicture}%
+        \caption{Pressure Regulator}%
+        \label{fc:regulator}%
+    \end{subfigure}%
+
+    \caption{Compressed Air Equivalent}%
+    \label{fc:air equivalent}%
+\end{figure}%
+
+\clearpage
+\subsection{Cool Gas Generator}
+TBD
+\begin{figure}[htp]
+    \begin{subfigure}{0.5\textwidth}%
+        \centering%
+        \begin{tikzpicture}[node distance=2 cm]
+            \node (in1) [io] {Input: Shop Air};
+            \node (pro1) [process, below of=in1] {Pressure Regulator};
+            \node (pro2) [process, below of=pro1] {Ball Valve `Orifice'};
+            \node (pro3) [process, below of=pro2] {Buffer Volume};
+            \node (out1) [io, below of=pro3] {Output: Simulated CGG Production};
+
+            \draw [arrow] (in1) -- node[anchor=east] {6--8 Bar} (pro1);
+            \draw [arrow] (pro1) -- node[anchor=east] {6.0 Bar} (pro2);
+            \draw [arrow] (pro2) -- node[anchor=east] {0.2 g/min} (pro3);
+            \draw [arrow] (pro3) -- node[anchor=east] {3 Bar Max} (out1);
+        \end{tikzpicture}%
+        \caption{Ball Valve}%
+        \label{fc:ball cgg}%
+    \end{subfigure}%
+    \hfill%
+    \begin{subfigure}{0.5\textwidth}%
+        \centering%
+        \begin{tikzpicture}[node distance=2 cm]
+            \node (in1) [io] {Input: Shop Air};
+            \node (pro1) [process, below of=in1] {Pressure Regulator};
+            \node (pro2) [process, below of=pro1] {Bronckhorst Mass Flow Controller};
+            \node (pro3) [process, below of=pro2] {Buffer Volume};
+            \node (out1) [io, below of=pro3] {Output: Simulated CGG Production};
+
+            \draw [arrow] (in1) -- node[anchor=east] {6--8 Bar} (pro1);
+            \draw [arrow] (pro1) -- node[anchor=east] {6.0 Bar} (pro2);
+            \draw [arrow] (pro2) -- node[anchor=east] {0.2 g/min} (pro3);
+            \draw [arrow] (pro3) -- node[anchor=east] {6 Bar Max} (out1);
+        \end{tikzpicture}%
+        \caption{Bronckhorst}%
+        \label{fc:bronckhorst cgg}%
+    \end{subfigure}%
+
+    \caption{CGG Compressed Air Equivalent}%
+    \label{fc:cgg equivalent}%
+\end{figure}%
+
+\clearpage
+\subsection{Fuel Cell}
+TBD
+\begin{figure}[htp]
+    % \centering%
+    \begin{subfigure}{\textwidth}%
+        \centering%
+        \begin{tikzpicture}[node distance=2 cm]
+            \node (in) [io] {Input: Regulated air from CGG equivalent};
+            \node (valve) [decision, below of=in, yshift=-5mm] {5/2 Valve};
+            \node (purge) [process, below of=valve, xshift = -3cm] {Purging: Ball Valve `Orifice'};
+            \node (normal) [process, below of=valve, xshift = 3cm] {Normal Operation: Ball Valve `Orifice'};
+            \node (outp) [io, below of=purge] {Output: Purged to atmosphere};
+            \node (outn) [io, below of=normal] {Output: `Used by fuel cell' (released to atmosphere)};
+
+            \draw [arrow] (in) -- node[anchor=east] {0.35--0.5 Bar} (valve);
+            \draw [arrow] (valve) -| (purge);
+            \draw [arrow] (valve) -| (normal);
+            \draw [arrow] (purge) -- node[anchor=east] {0.6 g/min} (outp);
+            \draw [arrow] (normal) -- node[anchor=east] {0.2 g/min} (outn);
+        \end{tikzpicture}%
+        \caption{Ball Valve, Single Switch}%
+        \label{fc:ball fc}%
+    \end{subfigure}%
+
+    \vspace{1cm}
+    \begin{subfigure}{\textwidth}%
+        \centering%
+        \begin{tikzpicture}[node distance=2 cm]
+            \node (in) [io] {Input: Regulated air from CGG equivalent};
+            \node (pvalve) [decision, below of=in, yshift=-5mm, xshift=-5cm] {5/2 Valve};
+            \node (nvalve) [decision, below of=in, yshift=-5mm, xshift=5cm] {5/2 Valve};
+            \node (porifice) [process, below of=pvalve] {Purging: Ball Valve `Orifice'};
+            \node (norifice) [process, below of=nvalve] {Normal Operation: Ball Valve `Orifice'};
+            \node (pout) [io, below of=porifice] {Output: Purged to atmosphere};
+            \node (nout) [io, below of=norifice] {Output: `Used by fuel cell' (released to atmosphere)};
+            \node (block) [io, below of= in, yshift=-4.5cm] {Output:\\Blocked};
+
+
+            \draw [arrow] (in) -| node[anchor=east] {0.35--0.5 Bar} (pvalve);
+            \draw [arrow] (in) -| node[anchor=west] {0.35--0.5 Bar} (nvalve);
+            \draw [arrow] (pvalve) -- (porifice);
+            \draw [arrow] (nvalve) -- (norifice);
+            \draw [arrow] (pvalve) -| (block);
+            \draw [arrow] (nvalve) -|    (block);
+            \draw [arrow] (porifice) -- node[anchor=east] {0.6 g/min} (pout);
+            \draw [arrow] (norifice) -- node[anchor=east] {0.2 g/min} (nout);
+        \end{tikzpicture}%
+        \caption{Ball Valve, Dual Switch}%
+        \label{fc:ball fc}%
+    \end{subfigure}%
+
+    \vspace{1cm}
+    \begin{subfigure}{\textwidth}%
+        \centering%
+        \begin{tikzpicture}[node distance=2 cm]
+            \node (in) [io] {Input: Regulated air from CGG equivalent};
+            \node (valve) [process, below of=in] {Bronckhorst Mass Flow Controller};
+            \node (out) [io, below of=valve] {Output: H2 used or purged by Fuel Cell (released to atmosphere)};
+
+            \draw [arrow] (in) -- node[anchor=east] {0.35--0.5 Bar} (valve);
+            \draw [arrow] (valve) -- node[anchor=east] {Mass flow by Micro Controller} (out);
+        \end{tikzpicture}%
+        \caption{Bronckhorst}%
+        \label{fc:bronckhorst fc}%
+    \end{subfigure}%
+
+    \caption{Fuel Cell Compressed Air Equivalent}%
+    \label{fc:fc equivalent}%
+\end{figure}%
+
+\begin{tabularx}{\textwidth}{lXX}
+    \toprule
+    \textbf{Test setup}      & \textbf{Capabilities}              & \textbf{Downsides}                                         \\
+    \midrule
+    Ball Valve Single Switch & Test uncontrolled system behaviour & Mass flow is only accurate when input pressure is constant \\
+    Ball Valve Dual Switch   & Test On--Off controlled behaviour  & Mass flow is only accurate when input pressure is constant \\
+    Bronchorst Valve         & Test PID controlled behaviour      & Expensive                                                  \\
+    \bottomrule
+\end{tabularx}
+
+\clearpage
+\section{Hydrogen Test}
+TBD
+\begin{figure}[htp]
+    \centering
+    \begin{tikzpicture}[node distance=2 cm]
+        \node (in1) [io] {Input: Hydrogen Gas Storage};
+        \node (pro1) [process, below of=in1] {Pressure Reducer};
+        \node (pro2) [sensor, below of=pro1] {Mass Flow Sensor};
+        \node (pro3) [process, below of=pro2] {Flow Control Unit};
+        % \node (pro4) [sensor, below of=pro3, yshift=-1cm] {Mass Flow Sensor};
+        \node (pro5) [sensor, below of=pro3, yshift=0.5cm, xshift=6cm] {Pressure Sensor};
+        \node (pro6) [process, below of=pro3, yshift=-1cm] {40 micron filter};
+        \node (pro7) [process, below of=pro6] {Fuel Cell};
+        \node (out1) [io, below of=pro7] {Output: 800W};
+
+        \draw [arrow] (in1) -- node[anchor=east] {High pressure} (pro1);
+        \draw [arrow] (pro1) -- node[anchor=east] {Low pressure} (pro2);
+        \draw [arrow] (pro2) -- (pro3);
+        \draw [arrow] (pro3) -- node[anchor=east] {0.9 Bar} (pro6);
+        \draw [arrow] (pro3) |- (pro5);
+        \draw [arrow] (pro5) |- (pro3);
+        % \draw [arrow] (pro4) -- (pro6);
+        \draw [arrow] (pro6) -- (pro7);
+        \draw [arrow] (pro7) -- (out1);
+    \end{tikzpicture}
+
+    \caption{Hydrogen Test Setup}
+    \label{fc:h2 test}
+\end{figure}
+
+\begin{figure}[htp]
+    \centering
+    \begin{tikzpicture}[node distance=2 cm]
+        \node (in1) [io] {Input: 800W};
+        \node (pro1) [sensor, below of=in1] {Amp Meter};
+        \node (pro2) [process, below of=pro1] {(Ideal) Diode\\Current Regulator};
+        \node (pro3) [process, below of=pro1, xshift=6cm, yshift=-1.5cm] {Battery};
+        \node (pro4) [sensor, below of=pro3, yshift=-1cm] {Volt Meter};
+        \node (pro5) [sensor, below of=pro2, yshift=-1cm] {Amp Meter};
+        \node (pro6) [process, below of=pro5, yshift=-1cm] {ESC};
+        \node (pro7) [process, below of=pro6] {Motor};
+        \node (pro8) [process, below of=pro7] {Propeller};
+        \node (pro9) [sensor, below of=pro6, xshift=6cm] {Force Sensor};
+        \node (out1) [io, below of=pro8] {Output: Thrust};
+
+        \draw [arrow] (in1) -- (pro1);
+        \draw [arrow] (pro1) -- (pro2);
+        \draw [arrow] (pro2) |- (pro3);
+        \draw [arrow] (pro3) -| (pro5);
+        \draw [arrow] (pro4) -| (pro6);
+        \draw [arrow] (pro5) -- (pro6);
+        \draw [arrow] (pro6) -- (pro7);
+        \draw [arrow] (pro7) -- (pro8);
+        \draw [arrow] (pro7) -- (pro9);
+        \draw [arrow] (pro8) -- (out1);
+    \end{tikzpicture}
+
+    \caption{Electronics Test Setup}
+    \label{fc:electric test}
+\end{figure}
+
 
 \newpage
