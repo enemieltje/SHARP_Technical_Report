@@ -247,6 +247,7 @@ pythontex-files-*/
 *.dpth
 *.md5
 *.auxlock
+tikz/*
 
 # titletoc
 *.ptc
