@@ -1,5 +1,6 @@
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric, arrows, arrows.meta, positioning}
+\usetikzlibrary{shapes.geometric, arrows, arrows.meta, positioning, calc, external}
+\tikzexternalize[prefix=tikz/]
 
 \tikzstyle{startstop} = [rectangle, rounded corners,
 minimum width=3cm,
@@ -42,3 +43,21 @@ draw=black,
 fill=green!30]
 
 \tikzstyle{arrow} = [thick,->,>=stealth]
+
+\tikzstyle{pyprocess} = [rectangle,
+minimum width=2cm,
+minimum height=1cm,
+text centered,
+text width=3cm,
+draw=black,
+fill=orange!30]
+
+\tikzstyle{pyvolume} = [rectangle,
+% trapezium stretches body=true, % A later addition
+% trapezium left angle=85,
+% trapezium right angle=95,
+minimum width=2cm,
+minimum height=1cm,
+text centered,
+text width = 3cm,
+draw=black, fill=blue!30]

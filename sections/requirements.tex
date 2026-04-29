@@ -1,33 +1,35 @@
-\section{Requirements}
+\section{Requirements}%
+\label{sec:requiements}
 
 \emph{From the mission scenario presented by Wren Aerospace et al. (discussed in section~\ref{sec:mission_scenario}) a set of system requirements is derived. From this mission scenario the system functions are formulated, which are decomposed into subfunctions. The system requirements are then allocated to these system functions.}
 
 
 % System level Requirements
-\subsection{System Level Requirements}
+\subsection{User Level Requirements}
 
 % user reqs
 The user requirements defined by Stellar Space Industries, Solid Flow and Wren Aerospace are summarised below:
 \begin{itemize}
-      \item The system shall include SSIs FCU
-      \item The system shall include SolidFlows CGG
-      \item The system shall integrate with WrenAerospaces UAV
-      \item The system shall produce electricity from hydrogen
-            % \item Shall function without external psu %(covered by wren)
-      \item The system shall have a power density comparable to UAVs %(covered by wren)
+    \item The system shall include SSIs FCU
+    \item The system shall include SolidFlows CGG
+    \item The system shall integrate with WrenAerospaces UAV
+    \item The system shall produce electricity from hydrogen
+          % \item Shall function without external psu %(covered by wren)
+    \item The system shall have a power density greater than or comparable to UAVs %(covered by wren)
 \end{itemize}
 
-These are translated to system requirements in a structured manner. Each requirement will adhere to the following structure:
+\subsection{System Level Requirements}
+These user requirements are translated to system requirements in a structured manner. Each requirement will adhere to the following structure:
 
 \REQtable{Type-ID}
 
 \begin{itemize}
-      \item Type: Type of requirement e.g. Performance Requirement (PERF)
-      \item ID: Sl no.
-      \item Requirement Statement --- a brief and unambiguous representation of the requirement
-      \item Requirement Approach --- provides information on the scope and how the requirement could be achieved
-      \item Verification Approach --- presents plan on how the specified requirement will be verified
-      \item Category: Mandatory (M), Desirable (D), Optional (O)
+    \item Type: Type of requirement e.g. Performance Requirement (PERF)
+    \item ID: Sl no.
+    \item Requirement Statement --- a brief and unambiguous representation of the requirement
+    \item Requirement Approach --- provides information on the scope and how the requirement could be achieved
+    \item Verification Approach --- presents plan on how the specified requirement will be verified
+    \item Category: Mandatory (M), Desirable (D), Optional (O)
 \end{itemize}
 
 % Requirements from Wren Aerospace
@@ -78,20 +80,20 @@ These are translated to system requirements in a structured manner. Each require
 
 % \subsubsection{Functional Decomposition}
 % Subsystem level Requirements
-\subsection{Subsystem Level Requirements}
+% \subsection{Subsystem Level Requirements}
 
 
-Based on the mission scenario, a list has been constructed of functions that the system needs to be able to fulfil. Each of these functions will represent a subsystem of the power generation and delivery system. The identified subsystems are as follows:
-\begin{itemize}
-      \item Manage Hydrogen Supply %(FCU)
-      \item Hydrogen Conversion %(FC)
-      \item Intermediate Energy Storage %(LiPo, H2 buffer)
-      \item Electricity Conditioning %(DC/DC, Diode?, LiPo charger?)
-      \item Monitoring and Control %(microcontroller)
-            % \item Ensure Safety
-\end{itemize}
+% Based on the mission scenario, a list has been constructed of functions that the system needs to be able to fulfil. Each of these functions will represent a subsystem of the power generation and delivery system. The identified subsystems are as follows:
+% \begin{itemize}
+%       \item Manage Hydrogen Supply %(FCU)
+%       \item Hydrogen Conversion %(FC)
+%       \item Intermediate Energy Storage %(LiPo, H2 buffer)
+%       \item Electricity Conditioning %(DC/DC, Diode?, LiPo charger?)
+%       \item Monitoring and Control %(microcontroller)
+%             % \item Ensure Safety
+% \end{itemize}
 
-The requirements for each subsystem will be discussed in the following sections. Each subsystem level requirement is either a system level requirement that has been allocated to a specific subsystem, or a requirement derived from a system level requirement.
+% The requirements for each subsystem will be discussed in the following sections. Each subsystem level requirement is either a system level requirement that has been allocated to a specific subsystem, or a requirement derived from a system level requirement.
 
 
 % Functional Decomposition % Functional requirements
@@ -145,11 +147,11 @@ The requirements for each subsystem will be discussed in the following sections.
 %             \end{itemize}
 % \end{itemize}
 
-\subsubsection{Hydrogen Supply}
-\subsubsection{Hydrogen Conversion}
-\subsubsection{Intermediate Energy Storage}
-\subsubsection{Electricity Conditioning}
-\subsubsection{Monitoring and Control}
+% \subsubsection{Hydrogen Supply}
+% \subsubsection{Hydrogen Conversion}
+% \subsubsection{Intermediate Energy Storage}
+% \subsubsection{Electricity Conditioning}
+% \subsubsection{Monitoring and Control}
 % \subsubsection{Safety}
 
 
