@@ -27,7 +27,8 @@
 \rfoot{\thepage}
 
 % Tables
-\usepackage{tabularx,booktabs,array,longtable,calc}
+\usepackage{tabularx,booktabs,array,longtable,calc,xltabular}
+\usepackage{multirow}
 \usepackage{footnote}
 \usepackage{datatool}
 \usepackage{makecell}
@@ -75,10 +76,9 @@
 \usepackage{ifthen}
 \usepackage{glossaries-extra}
 \setabbreviationstyle[acronym]{long-short}
-% \setacronymstyle{long-short}
-% \makeglossaries
 \usepackage{datetime}
 \ddmmyyyydate
+\usepackage{mhchem}
 
 % Optional enhancements
 \IfFileExists{microtype.sty}{\usepackage{microtype}}{}
@@ -100,12 +100,17 @@
   \the\year%
   \ifnum\month<10 0\fi\the\month%
   \ifnum\day<10 0\fi\the\day%
-}
+}%
 
 \newcommand{\includesection}[1]{%
-  \clearpage
-  \subfile{#1}
-}
+  \clearpage%
+  \subfile{#1}%
+}%
+
+\newcommand{\iic}{%
+  % I$^2$C%
+  I\textsuperscript{2}C%
+}%
 
 \renewcommand*\contentsname{Table of Contents:}
 \setcounter{secnumdepth}{2}
@@ -124,7 +129,7 @@
      &
     \vspace{0mm}
     Document: Technical Report \newline
-    Issue: 0.3 \newline
+    Issue: 0.4 \newline
     Date: \today\newline
     Page: \thepage~of~\pageref{LastPage} \\
   \end{tabularx}%

@@ -1,31 +1,8 @@
-\chapter{Testing}%
+\chapter{Test Results}%
 \label{chap:testing}
 TBD
-\begin{figure}[htp]
-    \centering
-    \scalebox{0.8}{
-        \begin{tikzpicture}[node distance=2 cm]
-            % \draw[help lines] (0, -3) grid (10,3);
-            \airsupply{origin}
-            \draw[thick, densely dotted] (1, -1.5) -| +(4, 3.5) -| ++(0, 0);
-            \node (airsupplytext) at (3, -2) {Air Supply};
+\newpage
 
-            \aircgg{airsupply}
-            \draw[thick, densely dotted] (aircgg) ++(0.75, -1.5) -| +(-5.5, 3.5) -| ++(0, 0);
-            \node (airsupplytext) at (8, -2) {CGG Air Equivalent};
-
-            \node[pressure regulator, right of=aircgg] (pregulator) {};
-            \draw[thick] (aircgg) -- (pregulator);
-
-            \airfc{pregulator}
-            \draw[thick, densely dotted] (airfc) ++(0.75, -1) -| +(-4.5, 8) -| ++(0, 0);
-            \node (airsupplytext) at (15.5, -4) {Fuel Cell Air Equivalent};
-
-        \end{tikzpicture}
-    }
-    \caption{Air Test Setup}%
-    \label{fig:air test}%
-\end{figure}
 
 
 
@@ -88,190 +65,88 @@ Goals of various tests:
 
 \clearpage
 \section{Compressed Air Equivalent System}
-TBD
 
-Goals of compressed air equivalent tests:
-\begin{itemize}
-    \item Explore unknown risks
-    \item Verify expected system behaviour
-    \item Verify simulation results
-    \item Compare control strategies
-\end{itemize}
+\emph{The compressed air equivalent system performs the same gas flows as the hydrogen part of the power generation and feed system. This system will allow analysis of the flow dynamics of the system without the use of hydrogen, allowing for a cheaper and safer system that is faster to realise. In this chapter, an overview is given of the system and the tests performed with it. The results of these tests are reviewed and compared with those of the python simulation.}
 
-\subsection{Fuel Supply Regulator}
-TBD
+\subsection{Testing Goals}
+The main goal of the compressed air equivalent tests is to explore the flow dynamics of the system and verify that they match expected behaviour. This includes comparing results with the python simulation and verifying that using the internal volume of the CGG as a buffer is sufficient to ensure stable flow to the fuel cell during purge events.
+
+Additionally, the compressed air tests will be used to gain experience with the fluidics hardware and explore risks like leakage before introducing hydrogen.
+
+
+% Goals of compressed air equivalent tests:
+% \begin{itemize}
+%     \item Explore unknown risks
+%     \item Verify expected system behaviour
+%     \item Verify simulation results
+%     \item Compare control strategies
+% \end{itemize}
+
+
+
+\subsection{System Overview}
+The hydrogen part of the power generation and feed system consists of three main components: the fuel cell, the flow control unit, and the cool gas generator. In the air equivalent system, the fuel cell and CGG are replaced by subsystems that let through air at the same rate and pressure as the fuel cell and CGG would. The flow control unit is used as-is, controlling the flow of air instead of hydrogen. The system is depicted in Figure~\ref{fig:air test}.
 
 \begin{figure}[htp]
-    \begin{subfigure}{0.5\textwidth}%
-        \centering%
+    \centering
+    \scalebox{0.8}{
         \begin{tikzpicture}[node distance=2 cm]
-            \node (in) [io] {Input: CGG Air Equivalent};
-            \node (valve) [process, below of=in] {Stellar Space FCU};
-            \node (out) [io, below of=valve] {Output: Fuel Cell Air Equivalent};
+            % \draw[help lines] (0, -3) grid (10,3);
+            \airsupply{origin}
+            \draw[thick, densely dotted] (1, -1.5) -| +(4, 3.5) -| ++(0, 0);
+            \node (airsupplytext) at (3, -2) {Air Supply};
 
-            \draw [arrow] (in) -- node[anchor=east] {0.35--3 Bar} (valve);
-            \draw [arrow] (valve) -- node[anchor=east] {0.35--0.5 Bar} (out);
-        \end{tikzpicture}%
-        \caption{FCU}%
-        \label{fc:fcu}%
-    \end{subfigure}%
-    \hfill%
-    \begin{subfigure}{0.5\textwidth}%
-        \centering%
-        \begin{tikzpicture}[node distance=2 cm]
-            \node (in) [io] {Input: CGG Air Equivalent};
-            \node (valve) [process, below of=in] {Pressure Regulator};
-            \node (out) [io, below of=valve] {Output: Fuel Cell Air Equivalent};
+            \aircgg{airsupply}
+            \draw[thick, densely dotted] (aircgg) ++(0.75, -1.5) -| +(-5.5, 3.5) -| ++(0, 0);
+            \node (airsupplytext) at (8, -2) {CGG Air Equivalent};
 
-            \draw [arrow] (in) -- node[anchor=east] {0.35--3 Bar} (valve);
-            \draw [arrow] (valve) -- node[anchor=east] {0.35--0.5 Bar} (out);
-        \end{tikzpicture}%
-        \caption{Pressure Regulator}%
-        \label{fc:regulator}%
-    \end{subfigure}%
+            \node[pressure regulator, right of=aircgg] (pregulator) {};
+            \draw[thick] (aircgg) -- (pregulator);
 
-    \caption{Compressed Air Equivalent}%
-    \label{fc:air equivalent}%
-\end{figure}%
+            \airfc{pregulator}
+            \draw[thick, densely dotted] (airfc) ++(0.75, -1) -| +(-4.5, 8) -| ++(0, 0);
+            \node (airsupplytext) at (15.5, -4) {Fuel Cell Air Equivalent};
 
-\clearpage
-\subsection{Cool Gas Generator}
+        \end{tikzpicture}
+    }
+    \caption{Fluidics of the Air Test Setup}%
+    \label{fig:air test}%
+\end{figure}
+
+\subsubsection*{CGG Equivalent}
+The CGG produces hydrogen at a fixed rate regardless of output pressure. To simulate this, an orifice has been sized to the expected mass flow of the CGG. To ensure that this flow rate does not change with pressure, sonic flow must occur in the orifice. This occurs when the upstream pressure is at least 2 times the downstream pressure. The maximum expected CGG output pressure is 4 Bar, so the upstream pressure is set to 8 Bar to ensure sonic flow. The hydrogen that the CGG produces is stored in the internal volume of the CGG, which is approximately 0.1 L. Therefore, the air system includes a buffer volume of 0.1 L to simulate the CGG storage. The CGG equivalent also includes a pressure sensor to measure the pressure inside the buffer volume.
+
+\subsubsection*{Fuel Cell Equivalent}
+The fuel cell normally uses hydrogen at a rate that depends on power draw and at an increased rate during purge events. For the air tests, the `power draw' is assumed to be a fixed value of 200 W, which corresponds to a hydrogen mass flow of approximately 0.18 g/min. During purge events, the hydrogen mass flow is expected to increase to approximately 0.27 g/min. To simulate this with compressed air, two orifices have been sized to these flow rates at a pressure of 1 Bar, which corresponds to the operating pressure of the fuel cell. Solenoid valves are used to switch between the two orifices to simulate purge events.
+
+As the fuel cell requires an input pressure of exactly 1 Bar, but the CGG volume can fluctuate between 1 and 4 Bar, a pressure regulator is used to ensure the fuel cell equivalent always receives air at 1 Bar. In the hydrogen system, this function will be performed by Stellar Space Industries' flow control system. However, as this system is not yet available, a commercial off-the-shelf pressure regulator is used for the air tests.
+
+\subsubsection*{Control System}
 TBD
-\begin{figure}[htp]
-    \begin{subfigure}{0.5\textwidth}%
-        \centering%
-        \begin{tikzpicture}[node distance=2 cm]
-            \node (in1) [io] {Input: Shop Air};
-            \node (pro1) [process, below of=in1] {Pressure Regulator};
-            \node (pro2) [process, below of=pro1] {Ball Valve `Orifice'};
-            \node (pro3) [process, below of=pro2] {Buffer Volume};
-            \node (out1) [io, below of=pro3] {Output: Simulated CGG Production};
-
-            \draw [arrow] (in1) -- node[anchor=east] {6--8 Bar} (pro1);
-            \draw [arrow] (pro1) -- node[anchor=east] {6.0 Bar} (pro2);
-            \draw [arrow] (pro2) -- node[anchor=east] {0.2 g/min} (pro3);
-            \draw [arrow] (pro3) -- node[anchor=east] {3 Bar Max} (out1);
-        \end{tikzpicture}%
-        \caption{Ball Valve}%
-        \label{fc:ball cgg}%
-    \end{subfigure}%
-    \hfill%
-    \begin{subfigure}{0.5\textwidth}%
-        \centering%
-        \begin{tikzpicture}[node distance=2 cm]
-            \node (in1) [io] {Input: Shop Air};
-            \node (pro1) [process, below of=in1] {Pressure Regulator};
-            \node (pro2) [process, below of=pro1] {Bronckhorst Mass Flow Controller};
-            \node (pro3) [process, below of=pro2] {Buffer Volume};
-            \node (out1) [io, below of=pro3] {Output: Simulated CGG Production};
-
-            \draw [arrow] (in1) -- node[anchor=east] {6--8 Bar} (pro1);
-            \draw [arrow] (pro1) -- node[anchor=east] {6.0 Bar} (pro2);
-            \draw [arrow] (pro2) -- node[anchor=east] {0.2 g/min} (pro3);
-            \draw [arrow] (pro3) -- node[anchor=east] {6 Bar Max} (out1);
-        \end{tikzpicture}%
-        \caption{Bronckhorst}%
-        \label{fc:bronckhorst cgg}%
-    \end{subfigure}%
-
-    \caption{CGG Compressed Air Equivalent}%
-    \label{fc:cgg equivalent}%
-\end{figure}%
-
-\clearpage
-\subsection{Fuel Cell}
-TBD
-\begin{figure}[htp]
-    % \centering%
-    \begin{subfigure}{\textwidth}%
-        \centering%
-        \begin{tikzpicture}[node distance=2 cm]
-            \node (in) [io] {Input: Regulated air from CGG equivalent};
-            \node (valve) [decision, below of=in, yshift=-5mm] {5/2 Valve};
-            \node (purge) [process, below of=valve, xshift = -3cm] {Purging: Ball Valve `Orifice'};
-            \node (normal) [process, below of=valve, xshift = 3cm] {Normal Operation: Ball Valve `Orifice'};
-            \node (outp) [io, below of=purge] {Output: Purged to atmosphere};
-            \node (outn) [io, below of=normal] {Output: `Used by fuel cell' (released to atmosphere)};
-
-            \draw [arrow] (in) -- node[anchor=east] {0.35--0.5 Bar} (valve);
-            \draw [arrow] (valve) -| (purge);
-            \draw [arrow] (valve) -| (normal);
-            \draw [arrow] (purge) -- node[anchor=east] {0.6 g/min} (outp);
-            \draw [arrow] (normal) -- node[anchor=east] {0.2 g/min} (outn);
-        \end{tikzpicture}%
-        \caption{Ball Valve, Single Switch}%
-        \label{fc:ball fc}%
-    \end{subfigure}%
-
-    \vspace{1cm}
-    \begin{subfigure}{\textwidth}%
-        \centering%
-        \begin{tikzpicture}[node distance=2 cm]
-            \node (in) [io] {Input: Regulated air from CGG equivalent};
-            \node (pvalve) [decision, below of=in, yshift=-5mm, xshift=-5cm] {5/2 Valve};
-            \node (nvalve) [decision, below of=in, yshift=-5mm, xshift=5cm] {5/2 Valve};
-            \node (porifice) [process, below of=pvalve] {Purging: Ball Valve `Orifice'};
-            \node (norifice) [process, below of=nvalve] {Normal Operation: Ball Valve `Orifice'};
-            \node (pout) [io, below of=porifice] {Output: Purged to atmosphere};
-            \node (nout) [io, below of=norifice] {Output: `Used by fuel cell' (released to atmosphere)};
-            \node (block) [io, below of= in, yshift=-4.5cm] {Output:\\Blocked};
-
-
-            \draw [arrow] (in) -| node[anchor=east] {0.35--0.5 Bar} (pvalve);
-            \draw [arrow] (in) -| node[anchor=west] {0.35--0.5 Bar} (nvalve);
-            \draw [arrow] (pvalve) -- (porifice);
-            \draw [arrow] (nvalve) -- (norifice);
-            \draw [arrow] (pvalve) -| (block);
-            \draw [arrow] (nvalve) -|    (block);
-            \draw [arrow] (porifice) -- node[anchor=east] {0.6 g/min} (pout);
-            \draw [arrow] (norifice) -- node[anchor=east] {0.2 g/min} (nout);
-        \end{tikzpicture}%
-        \caption{Ball Valve, Dual Switch}%
-        \label{fc:ball fc}%
-    \end{subfigure}%
-
-    \vspace{1cm}
-    \begin{subfigure}{\textwidth}%
-        \centering%
-        \begin{tikzpicture}[node distance=2 cm]
-            \node (in) [io] {Input: Regulated air from CGG equivalent};
-            \node (valve) [process, below of=in] {Bronckhorst Mass Flow Controller};
-            \node (out) [io, below of=valve] {Output: H2 used or purged by Fuel Cell (released to atmosphere)};
-
-            \draw [arrow] (in) -- node[anchor=east] {0.35--0.5 Bar} (valve);
-            \draw [arrow] (valve) -- node[anchor=east] {Mass flow by Micro Controller} (out);
-        \end{tikzpicture}%
-        \caption{Bronckhorst}%
-        \label{fc:bronckhorst fc}%
-    \end{subfigure}%
-
-    \caption{Fuel Cell Compressed Air Equivalent}%
-    \label{fc:fc equivalent}%
-\end{figure}%
-
-\begin{tabularx}{\textwidth}{lXX}
-    \toprule
-    \textbf{Test setup}      & \textbf{Capabilities}              & \textbf{Downsides}                                         \\
-    \midrule
-    Ball Valve Single Switch & Test uncontrolled system behaviour & Mass flow is only accurate when input pressure is constant \\
-    Ball Valve Dual Switch   & Test On--Off controlled behaviour  & Mass flow is only accurate when input pressure is constant \\
-    Bronchorst Valve         & Test PID controlled behaviour      & Expensive                                                  \\
-    \bottomrule
-\end{tabularx}
 
 \clearpage
 \subsection{Results}
-TBD
+Figure~\ref{fig:air purge} show the pressure in the CGG buffer volume and the flow rate from the CGG to the fuel cell. Figure~\ref{fig:sim purge} shows the results of the python simulation during a similar time frame. The simulation also shows the pressure in the CGG buffer volume in green, which can be directly compared to the measure pressure in the air test. The simulation does not directly show the same flow rate. However, it does show the state of the fuel cell from which a flow rate can be inferred. The blue line in the simulation shows when the fuel cell is in purge mode, which corresponds to the higher flow rate in the air test. The cyan line shows when the fuel cell is in normal mode, which corresponds to the lower flow rate in the air test.
+
+\emph{Note that the graph representing the flow rate of the air system has been scaled to improve visibility, this means that its units are no longer correct.}
+
+During normal operation, the fuel cell consumes slightly more than the CGG produces, which causes the pressure in the buffer to decrease. When the pressure drops too low, the fuel cell is temporarily disabled to allow the buffer to fill up again. This behaviour is seen in both the simulation and the test results. The real system reacts a bit slower to the pressure changes than the simulation, which leads to slightly larger pressure fluctuations. However, the overall behaviour is very similar, which gives confidence that the simulation is accurately capturing the flow dynamics of the system.
+
+When a purge event occurs, the fuel cell equivalent briefly consumes a lot more air, which causes a sharp drop in pressure. This too occurs both in the simulation and in the test results. In both systems the pressure drops from around 3.4 Bar to around 2 Bar. After the purge event, both systems disable the fuel cell to fill up the buffer again.
 
 \begin{figure}
     \begin{subfigure}{\textwidth}
         \includegraphics{media/simulated_purge.png}
         \caption{Simulated Purge Event}
+        \label{fig:sim purge}
     \end{subfigure}
     \begin{subfigure}{\textwidth}
         \includegraphics{media/air_purge.png}
         \caption{Measured Air Purge Event}
+        \label{fig:air purge}
     \end{subfigure}
+    \caption{Comparison of Simulation results with Compressed Air system}
+    \label{fig:sim air comparison}
 \end{figure}
 
 \clearpage
@@ -279,26 +154,49 @@ TBD
 TBD
 \begin{figure}[htp]
     \centering
-    \begin{tikzpicture}[node distance=2 cm]
-        \node (in1) [io] {Input: Hydrogen Gas Storage};
-        \node (pro1) [process, below of=in1] {Pressure Reducer};
-        \node (pro2) [sensor, below of=pro1] {Mass Flow Sensor};
-        \node (pro3) [process, below of=pro2] {Flow Control Unit};
-        % \node (pro4) [sensor, below of=pro3, yshift=-1cm] {Mass Flow Sensor};
-        \node (pro5) [sensor, below of=pro3, yshift=0.5cm, xshift=6cm] {Pressure Sensor};
-        \node (pro6) [process, below of=pro3, yshift=-1cm] {40 micron filter};
-        \node (pro7) [process, below of=pro6] {Fuel Cell};
-        \node (out1) [io, below of=pro7] {Output: 800W};
+    % \begin{tikzpicture}[node distance=2 cm]
+    %     \node (in1) [io] {Input: Hydrogen Gas Storage};
+    %     \node (pro1) [process, below of=in1] {Pressure Reducer};
+    %     \node (pro2) [sensor, below of=pro1] {Mass Flow Sensor};
+    %     \node (pro3) [process, below of=pro2] {Flow Control Unit};
+    %     % \node (pro4) [sensor, below of=pro3, yshift=-1cm] {Mass Flow Sensor};
+    %     \node (pro5) [sensor, below of=pro3, yshift=0.5cm, xshift=6cm] {Pressure Sensor};
+    %     \node (pro6) [process, below of=pro3, yshift=-1cm] {40 micron filter};
+    %     \node (pro7) [process, below of=pro6] {Fuel Cell};
+    %     \node (out1) [io, below of=pro7] {Output: 800W};
 
-        \draw [arrow] (in1) -- node[anchor=east] {High pressure} (pro1);
-        \draw [arrow] (pro1) -- node[anchor=east] {Low pressure} (pro2);
-        \draw [arrow] (pro2) -- (pro3);
-        \draw [arrow] (pro3) -- node[anchor=east] {0.9 Bar} (pro6);
-        \draw [arrow] (pro3) |- (pro5);
-        \draw [arrow] (pro5) |- (pro3);
-        % \draw [arrow] (pro4) -- (pro6);
-        \draw [arrow] (pro6) -- (pro7);
-        \draw [arrow] (pro7) -- (out1);
+    %     \draw [arrow] (in1) -- node[anchor=east] {High pressure} (pro1);
+    %     \draw [arrow] (pro1) -- node[anchor=east] {Low pressure} (pro2);
+    %     \draw [arrow] (pro2) -- (pro3);
+    %     \draw [arrow] (pro3) -- node[anchor=east] {0.9 Bar} (pro6);
+    %     \draw [arrow] (pro3) |- (pro5);
+    %     \draw [arrow] (pro5) |- (pro3);
+    %     % \draw [arrow] (pro4) -- (pro6);
+    %     \draw [arrow] (pro6) -- (pro7);
+    %     \draw [arrow] (pro7) -- (out1);
+    % \end{tikzpicture}
+
+    \begin{tikzpicture}[node distance=2cm]
+        % \draw[help lines] (0, 6) grid (15,-6);
+
+        \node (tank) [volume] at (6,0) {\ce{H2} Tank};
+        % \node (reducer) [pressure regulator] at (2,0) {};
+        \draw (3,0) pic[rotate=180] {pressure regulator};
+        \pic (qr) at (0,0) {quickrelease};
+        % \draw (0,2) pic[rotate=90] {quickrelease};
+        \node (valve) [manual valve] at (-0.5, 3) {};
+        \draw[thick] (qr-in) .. controls +(-1,0) and +(-1,0) .. (valve.west);
+
+        % \pic (regulator1) at (4,3) {pressure regulator};
+        \coordinate (cggloc) at (2,3);
+        \aircgg{cggloc}
+        \pic (filter) at (cggloc) {filter};
+        \pic (regulator2) at (10,3) {pressure regulator};
+        \node[draw, thick, minimum width=2cm, minimum height=2cm] (fc) at (13,3) {Fuel Cell};
+
+        \draw[thick] (tank) -- (qr-out);
+        \draw[thick] (valve) -- (filter-in);
+        \draw[thick] (cggloc) ++(5,0) -- (fc);
     \end{tikzpicture}
 
     \caption{Hydrogen Test Setup}
@@ -307,34 +205,164 @@ TBD
 
 \begin{figure}[htp]
     \centering
-    \begin{tikzpicture}[node distance=2 cm]
-        \node (in1) [io] {Input: 800W};
-        \node (pro1) [sensor, below of=in1] {Amp Meter};
-        \node (pro2) [process, below of=pro1] {(Ideal) Diode\\Current Regulator};
-        \node (pro3) [process, below of=pro1, xshift=6cm, yshift=-1.5cm] {Battery};
-        \node (pro4) [sensor, below of=pro3, yshift=-1cm] {Volt Meter};
-        \node (pro5) [sensor, below of=pro2, yshift=-1cm] {Amp Meter};
-        \node (pro6) [process, below of=pro5, yshift=-1cm] {ESC};
-        \node (pro7) [process, below of=pro6] {Motor};
-        \node (pro8) [process, below of=pro7] {Propeller};
-        \node (pro9) [sensor, below of=pro6, xshift=6cm] {Force Sensor};
-        \node (out1) [io, below of=pro8] {Output: Thrust};
+    \begin{tikzpicture}[node distance=3cm, power/.style=red, data/.style=blue, core/.style={fill=blue!25}]
+        % \draw[help lines] (0, 0) grid (15,-6);
 
-        \draw [arrow] (in1) -- (pro1);
-        \draw [arrow] (pro1) -- (pro2);
-        \draw [arrow] (pro2) |- (pro3);
-        \draw [arrow] (pro3) -| (pro5);
-        \draw [arrow] (pro4) -| (pro6);
-        \draw [arrow] (pro5) -- (pro6);
-        \draw [arrow] (pro6) -- (pro7);
-        \draw [arrow] (pro7) -- (pro8);
-        \draw [arrow] (pro7) -- (pro9);
-        \draw [arrow] (pro8) -- (out1);
+        \node (sensor) [component, anchor=west] {Pressure Sensor};
+        % \node (adc) [component, below of=sensor, yshift=1cm] {Analog Reader};
+        \node (rpi) [component, below of=sensor, yshift=-1cm, core] {Raspberry Pi};
+        \node (buck2) [component, below of=rpi, yshift=1cm] {Buck Converter};
+
+        \node (pm1) [component, right of=sensor, xshift=3cm] {Power Meter};
+        \node (fc) [component, above of=pm1, yshift=-1cm, core] {Fuel Cell};
+        \node (buck1) [component, right of=pm1] {Buck Converter};
+        \node (relay) [component, right of=buck1] {Relay};
+
+        \node (pm2) [component, below of=pm1, yshift=-1cm] {Power Meter};
+        \node (battery) [component, left of=pm2, core] {Battery};
+
+        \node (pm3) [component, below of=buck1, yshift=-1cm] {Power Meter};
+        \node (drone) [component, right of=pm3, core] {Drone};
+
+        \draw (sensor.west) ++ (0,-2) node (i2c) [component, minimum width=14cm, text width=4cm, anchor=west] {Data Bus (\iic)};
+        \draw (battery.west) ++ (0,-2) node (24v) [component, minimum width=11cm, text width=4cm, anchor=west] {Power Bus (24 V)};
+
+        \draw[arrow, power] (fc) -- (pm1);
+        \draw[arrow, power] (pm1) -- (buck1);
+        \draw[arrow, power] (buck1) -- (relay);
+        \draw[arrow, power] (relay.east) -- ++(1,0) |- (24v);
+        \draw[arrow, data, <-] (relay.south) -- ++(0,-1);
+        \draw[arrow, data, ->] (pm1.south) -- ++(0,-1);
+
+        \draw[arrow, power, <->] (pm2) -- (battery);
+        \draw[arrow, power, <->] (pm2.south) -- ++(0,-1);
+        \draw[arrow, data, ->] (pm2.north) -- ++(0,1);
+
+        \draw[arrow, power] (pm3) -- (drone);
+        \draw[arrow, power, <-] (pm3.south) -- ++(0,-1);
+        \draw[arrow, data, ->] (pm3.north) -- ++(0,1);
+
+        \draw[arrow, data] (sensor.south) -- +(0, -1);
+        % \draw[arrow, data] (adc) -- (i2c);
+        \draw[arrow, power] (24v) -- (buck2);
+        \draw[arrow, power] (buck2) -- (rpi);
+        \draw[arrow, data] (battery.north) -- +(0, 1);
+        \draw[arrow, data, <->] (rpi.north) -- +(0, 1);
+
+        \draw (relay.north) ++(-0.7,1) coordinate (legend);
+
+        \draw (legend) -- ++(0.5, 0) [arrow, data];
+        \draw (legend) ++(1.2,0) node[align=left, text width=1cm] {Data};
+        \draw (legend) ++(0,0.5) -- ++(0.5,0) [arrow, power];
+        \draw (legend) ++(1.2,0.5) node[align=left, text width=1cm] {Power};
     \end{tikzpicture}
+
 
     \caption{Electronics Test Setup}
     \label{fc:electric test}
 \end{figure}
 
+\clearpage
+\begin{xltabular}{\textwidth}{XllllX}
+    % header
+    \toprule
+    \textbf{Component}          & \textbf{Pin}         & \textbf{Connector}      & \textbf{Connects to}        & \textbf{Connector}      & \textbf{Wire}\\
+    \toprule
+    \endhead
+
+    % footer
+    \midrule
+    \multicolumn{6}{r}{\textit{Continued on next page...}}\\
+    \bottomrule
+    \endfoot
+
+    \bottomrule
+    \caption{Electrical Connections}
+    \label{tab:electrical connections}\\
+    \endlastfoot
+
+    % content
+    \multirow{2}{2cm}{Pressure Sensor}
+    & Vcc         & Attached wire  & 24V                & Terminal Block & Loose Wire\\
+    & Data        & Attached wire  & 4--20 mA Converter & Terminal Block & included\\
+    \midrule
+    \multirow{2}{2cm}{4--20 mA Converter}
+    & +           & Terminal block & Pressure Sensor    & Attached Wire  & included\\
+    & -           & Terminal block & GND                & Terminal Block & Loose Wire\\
+    & Analog Volt & DuPont (f)     & ADC                & DuPont (m)     & included\\
+    \midrule
+    ADC
+    & Analog Volt & DuPont (m)     & 4--20 mA Converter & DuPont (f)     & included\\
+    & Analog Volt & DuPont (m)     & Battery            & JST-XH~7 (f)   & JST-XH~7 (m) -- DuPont (m) DuPont (ff)\\
+    & Analog Volt & DuPont (m)     & ---                &                & \\
+    & Analog Volt & DuPont (m)     & ---                &                & \\
+    & \iic        & DuPont (f)     & \iic~Bus           & DuPont (m)     & included\\
+    \midrule
+    \iic~Bus
+    & \iic        & DuPont (m)     & ADC                & DuPont (f)     & included\\
+    & \iic        & DuPont (m)     & Power Meter        & DuPont (m)     & DuPont (ff)\\
+    & \iic        & DuPont (m)     & Power Meter        & DuPont (m)     & DuPont (ff)\\
+    & \iic        & DuPont (m)     & Power Meter        & DuPont (m)     & DuPont (ff)\\
+    & \iic        & DuPont (m)     & ---                &                & \\
+    & \iic        & DuPont (m)     & ---                &                & \\
+    & \iic        & DuPont (m)     & ---                &                & \\
+    & \iic        & DuPont (m)     & ---                &                & \\
+    & \iic        & DuPont (f)     & Raspberry Pi       & DuPont (m)     & included\\
+    \midrule
+    Fuel Cell
+    & Power Out   & XT60 (f)       & Power Meter 1      & Terminal Block & XT60 (m-)\\
+    \midrule
+    \multirow{2}{2cm}{Power Meter 1}
+    & Power In    & Terminal Block & Fuel Cell          & XT60 (f)       & XT60 (m-)\\
+    & Power Out   & Terminal Block & Buck Converter 1   & Terminal Block & Loose Wire\\
+    & \iic        & DuPont (m)     & \iic~Bus           & DuPont (m)     & DuPont (ff)\\
+    \midrule
+    \multirow{2}{2cm}{Buck Converter 1}
+    & Power In    & Terminal Block & Power Meter 1      & Terminal Block & Loose Wire\\
+    & Power Out   & Terminal Block & Relay              & Terminal Block & Loose Wire\\
+    \midrule
+    Relay
+    & Common      & Terminal Block & Buck Converter 1   & Terminal Block & Loose Wire\\
+    & NO          & Terminal Block & 24V                & Terminal Block & Loose Wire\\
+    & Control     & PCB Hole       & Raspberry Pi       & DuPont (m)     & DuPont (mf)\\
+    \midrule
+    \multirow{3}{2cm}{Power Meter 2}
+    & Power In    & Terminal Block & Battery            & XT60 (f)       & XT60 (m-)\\
+    & Power Out   & Terminal Block & 24V                & Terminal Block & Loose Wire\\
+    & \iic        & DuPont (m)     & \iic~Bus           & DuPont (m)     & DuPont (ff)\\
+    \midrule
+    Battery
+    & Power       & XT60 (f)       & Power Meter 2      & Terminal Block & XT60 (m-)\\
+    & Balance Leads & JST-XH~7 (f) & ADC                & DuPont (m)     & JST-XH~7 (m) -- DuPont (m) DuPont (ff)\\
+    \midrule
+    \multirow{2}{2cm}{Power Meter 3}
+    & Power In    & Terminal Block & ESC                & Attached Wire  & included\\
+    & Power Out   & Terminal Block & 24V                & Terminal Block & Loose Wire\\
+    \midrule
+    ESC
+    & Power In    & Attached Wire  & Power Meter 3      & Terminal Block & included\\
+    & 3 Phase Out & BLDC Plug (f)  & BLDC               & BLDC Plug (m)  & included\\
+    & Throttle    & DuPont (f)     & Raspberry Pi       & DuPont (m)     & included\\
+    & BEC         & DuPont (f)     & ---                &                &\\
+    & Active Break& DuPont (f)     & ---                &                &\\
+    \midrule
+    BLDC
+    & 3 Phase In  & BLDC Plug (m)  & ESC                & BLDC Plug (f)  & included\\
+    \midrule
+    \multirow{2}{2cm}{Buck Converter 2}
+    & Power In    & Terminal Block & 24V                & Terminal Block & Loose Wire \\
+    & Power Out   & Terminal Block & Raspberry Pi       & DuPont (m)     & DuPont (f-)\\
+    \midrule
+    Raspberry Pi
+    & 5V In       & DuPont (m)     & Buck Converter 2   & Terminal Block & DuPont (f-)\\
+    & \iic        & DuPont (m)     & \iic~Bus           & DuPont (f)     & included\\
+    \midrule
+    24V Bus
+    & Power       & Terminal Block & Pressure Sensor    & Terminal Block & Loose Wire\\
+    & Power       & Terminal Block & Relay              & Terminal Block & Loose Wire\\
+    & Power       & Terminal Block & Power Meter 2      & Terminal Block & Loose Wire\\
+    & Power       & Terminal Block & Power Meter 3      & Terminal Block & Loose Wire\\
+    & Power       & Terminal Block & Buck Converter 2   & Terminal Block & Loose Wire\\
+\end{xltabular}
 
 \newpage

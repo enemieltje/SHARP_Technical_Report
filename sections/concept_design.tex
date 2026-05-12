@@ -1,0 +1,208 @@
+% \chapter{Concept Design}%
+% \label{chap:concept design}%
+% \emph{In this chapter different system architectures are proposed for the hydrogen based power generation and feed system. The different architectures are then compared using a trade-off table on the basis of which one architecture is selected.}
+% \newpage
+
+% \section{Description of System Architectures}
+% A morphological chart has been constructed to compare different implementations of the required system functions. This chart is shown in table~\ref{tab:morphological chart}.
+% \begin{table}[htp]
+%     \begin{tabularx}{\textwidth}{|l|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}
+%         \hline
+%         \textbf{System Functions} & \textbf{Option 1}        & \textbf{Option 2} & \textbf{Option 3} \\
+%         \hline
+%         Fuel Cell Throttle        & Hydrogen Flow Controller & Current Limiter   & Relay             \\
+%         \hline
+%         Energy Storage            & Battery                  & Hydrogen Tank     &                   \\
+%         \hline
+%         Throttle Control          & On-Off                   & PID               & Fuzzy Logic       \\
+%         \hline
+%     \end{tabularx}
+%     \caption{Morphological chart of the Power Generation and Feed System Architectures}
+%     \label{tab:morphological chart}
+% \end{table}
+
+% % Changes with respect to Architecture 1 are highlighted in green.
+% \newcommand{\new}[1]{\cellcolor{green!80!yellow!50}\emph{#1}}
+% \begin{table}[htp]
+%     \begin{tabularx}{\textwidth}{l>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X}
+%         \toprule
+%                                     & \textbf{Architecture 1}  & \textbf{Architecture 2} & \textbf{Architecture 3} \\
+%         \midrule
+%         \textbf{Fuel Cell Throttle} & Hydrogen Flow Controller & Relay                   & Current Limiter         \\
+%         \textbf{Energy Storage}     & Hydrogen Tank            & Battery                 & Battery                 \\
+%         \textbf{Throttle Control}   & Fuzzy Logic              & On-Off                  & PID                     \\
+%         \midrule
+%         \textbf{Advantages}         & Simple Electronics       & Simple Control System   & Stable Power Delivery   \\
+%         \textbf{Disadvantages}      & Heavy at small scale     & Power Spikes            & Complex Electronics     \\
+%                                     & No Backup Battery        &                         &                         \\
+%         \bottomrule
+%     \end{tabularx}
+%     \caption{Proposed System Architectures}
+%     \label{tab:architectures}
+% \end{table}
+
+% \section{Architecture Trade-Off and Selection}
+
+% \textbf{arch 2:}
+% \\weight of 1L tank vs weight of pressure regulator
+
+% \textbf{arch 3:}
+% \\max switching frequency of fc, DC/DC
+% \\effectiveness of smoothing capacitor
+
+% \textbf{arch 4:}
+% \\required flexibility
+% \\weight efficiency of small vs large cggs
+
+% \textbf{arch 5/6:}
+% \\required flexibility
+% \\required mission time
+% \\required energy for (emergency) landing
+
+% \textbf{\Large{CHATGPT VERSION}}
+
+\chapter{Concept Design}
+\label{chap:concept design}
+
+\emph{This chapter presents the conceptual design process of the hydrogen-based power generation and feed system. Different system architectures are generated using a morphological analysis method and subsequently evaluated using a trade-off study. Based on this evaluation, the most suitable architecture is selected for further development.}
+
+\newpage
+
+\section{System Objectives and Functional Requirements}
+
+The purpose of the power generation and feed system is to provide reliable electrical power using hydrogen generated from Solid Flow's cool gas generator. The generated hydrogen is supplied to a fuel cell, which converts the chemical energy into electrical energy.
+
+The conceptual design of the system is driven by the following primary objectives:
+
+\begin{itemize}
+    \item Provide stable electrical power to the load;
+    \item Ensure safe handling and storage of hydrogen;
+    \item Minimize system complexity and mass;
+    \item Allow temporary energy buffering for peak load conditions;
+    \item Enable controllable fuel cell operation;
+    \item Maximize overall system efficiency.
+\end{itemize}
+
+To achieve these objectives, the system is divided into several key functional blocks:
+
+\begin{itemize}
+    \item Hydrogen generation subsystem;
+    \item Hydrogen storage and buffering subsystem;
+    \item Fuel cell power generation subsystem;
+    \item Electrical energy storage subsystem;
+    \item Power and throttle control subsystem.
+\end{itemize}
+
+\section{Morphological Analysis}
+
+A morphological analysis was conducted to systematically generate different system concepts. For each key system function, several implementation options were identified. By combining these options, multiple feasible system architectures can be created.
+
+The resulting morphological chart is shown in Table~\ref{tab:morphological chart}.
+
+\begin{table}[htp]
+    \begin{tabularx}{\textwidth}{|l|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}
+        \hline
+        \textbf{System Function} & \textbf{Option 1}        & \textbf{Option 2} & \textbf{Option 3} \\
+        \hline
+        Fuel Cell Throttle       & Hydrogen Flow Controller & Current Limiter   & Relay             \\
+        \hline
+        Energy Storage           & Battery                  & Hydrogen Tank     & --                \\
+        \hline
+        Throttle Control         & On-Off                   & PID               & Fuzzy Logic       \\
+        \hline
+    \end{tabularx}
+    \caption{Morphological chart of the proposed power generation and feed system}
+    \label{tab:morphological chart}
+\end{table}
+
+The morphological chart illustrates the design freedom available for the implementation of the system. Not all combinations are equally feasible; therefore, three representative architectures were selected for further evaluation.
+
+\section{Description of Proposed Architectures}
+
+Based on the combinations generated from the morphological chart, three candidate system architectures were developed. These architectures are summarized in Table~\ref{tab:architectures}.
+
+\begin{table}[htp]
+    \begin{tabularx}{\textwidth}{l>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X}
+        \toprule
+                                    & \textbf{Architecture 1}  & \textbf{Architecture 2} & \textbf{Architecture 3} \\
+        \midrule
+        \textbf{Fuel Cell Throttle} & Hydrogen Flow Controller & Relay                   & Current Limiter         \\
+        \textbf{Energy Storage}     & Hydrogen Tank            & Battery                 & Battery                 \\
+        \textbf{Throttle Control}   & Fuzzy Logic              & On-Off                  & PID                     \\
+        \midrule
+        \textbf{Advantages}         & Simple Electronics       & Simple Control System   & Stable Power Delivery   \\
+        \textbf{Disadvantages}      & Heavy at small scale     & Power Spikes            & Complex Electronics     \\
+                                    & No Backup Battery        &                         &                         \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Proposed system architectures}
+    \label{tab:architectures}
+\end{table}
+
+\subsection{Architecture 1: Hydrogen Buffer-Based System}
+
+Architecture 1 uses a hydrogen tank as intermediate energy storage. Excess hydrogen produced by the sodium borohydride reactor is temporarily stored before being supplied to the fuel cell.
+
+The fuel cell output is regulated using a hydrogen flow controller combined with a fuzzy logic control algorithm. This approach enables adaptive control of the hydrogen supply based on the load demand.
+
+The main advantage of this architecture is the relatively simple electrical subsystem, since transient power demands can partially be compensated through hydrogen buffering. However, hydrogen storage tanks become relatively heavy and inefficient at small scales. Furthermore, the absence of an electrical backup battery reduces the system robustness during startup and transient conditions.
+
+\subsection{Architecture 2: On-Off Controlled Battery System}
+
+Architecture 2 uses a battery as the primary energy buffer. The fuel cell is controlled using a simple relay-based on-off strategy.
+
+In this architecture, the fuel cell operates either at nominal output power or is completely switched off. The battery compensates for load transients and temporary mismatches between power generation and demand.
+
+The simplicity of the control system is a major advantage of this architecture. However, the discontinuous operation of the fuel cell may introduce voltage fluctuations and power spikes, potentially reducing overall system stability and fuel cell lifetime.
+
+\subsection{Architecture 3: PID Controlled Battery System}
+
+Architecture 3 combines battery-based energy storage with active current limiting and PID-based throttle control.
+
+The PID controller continuously regulates the fuel cell operating point in response to load variations, resulting in smoother power delivery and improved dynamic response. The battery acts as a supplementary energy buffer during transient operating conditions.
+
+Compared to the previous architectures, this concept offers superior electrical stability and controllability. However, the increased control performance comes at the cost of higher electronic and software complexity.
+
+\section{Architecture Trade-Off and Selection}
+
+To objectively compare the proposed architectures, a trade-off analysis was performed. The concepts were evaluated on several criteria derived from the system objectives.
+
+The evaluation criteria are:
+
+\begin{itemize}
+    \item System complexity;
+    \item Power stability;
+    \item Scalability;
+    \item Efficiency;
+    \item Safety;
+    \item Mass and volume;
+    \item Reliability.
+\end{itemize}
+
+Each criterion was assigned a weighting factor based on its relative importance to the intended application. The architectures were subsequently scored on a scale from 1 to 5, where 5 represents the best performance.
+
+\begin{table}[htp]
+    \centering
+    \begin{tabular}{lcccc}
+        \toprule
+        \textbf{Criterion} & \textbf{Weight} & \textbf{Arch. 1} & \textbf{Arch. 2} & \textbf{Arch. 3} \\
+        \midrule
+        Complexity         & 5               & 4                & 5                & 2                \\
+        Power Stability    & 3               & 3                & 2                & 5                \\
+        Efficiency         & 4               & 3                & 3                & 4                \\
+        Safety             & 5               & 3                & 4                & 4                \\
+        Mass/Volume        & 4               & 2                & 4                & 3                \\
+        Reliability        & 4               & 3                & 3                & 4                \\
+        \midrule
+        Weighted Score     &                 & 63               & 74               & 65               \\
+        \bottomrule
+    \end{tabular}
+    \caption{Trade-off analysis of the proposed architectures}
+    \label{tab:tradeoff}
+\end{table}
+
+Based on the trade-off analysis, Architecture 2 achieved the highest overall score and was therefore selected for further development.
+
+% Although Architecture 3 introduces increased electronic and software complexity, it provides the best overall balance between power stability, controllability, efficiency, and operational robustness. The combination of battery buffering and PID-controlled fuel cell operation is expected to provide stable system behaviour under varying load conditions.
+
+The selected architecture will therefore serve as the baseline concept for the detailed system design presented in the following chapters.
