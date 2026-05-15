@@ -139,7 +139,7 @@ Based on the combinations generated from the morphological chart, three candidat
     \label{tab:architectures}
 \end{table}
 
-\subsection{Architecture 1: Hydrogen Buffer-Based System}
+\subsection*{Architecture 1: Hydrogen Buffer-Based System}
 
 Architecture 1 uses a hydrogen tank as intermediate energy storage. Excess hydrogen produced by the sodium borohydride reactor is temporarily stored before being supplied to the fuel cell.
 
@@ -147,7 +147,7 @@ The fuel cell output is regulated using a hydrogen flow controller combined with
 
 The main advantage of this architecture is the relatively simple electrical subsystem, since transient power demands can partially be compensated through hydrogen buffering. However, hydrogen storage tanks become relatively heavy and inefficient at small scales. Furthermore, the absence of an electrical backup battery reduces the system robustness during startup and transient conditions.
 
-\subsection{Architecture 2: On-Off Controlled Battery System}
+\subsection*{Architecture 2: On-Off Controlled Battery System}
 
 Architecture 2 uses a battery as the primary energy buffer. The fuel cell is controlled using a simple relay-based on-off strategy.
 
@@ -155,7 +155,7 @@ In this architecture, the fuel cell operates either at nominal output power or i
 
 The simplicity of the control system is a major advantage of this architecture. However, the discontinuous operation of the fuel cell may introduce voltage fluctuations and power spikes, potentially reducing overall system stability and fuel cell lifetime.
 
-\subsection{Architecture 3: PID Controlled Battery System}
+\subsection*{Architecture 3: PID Controlled Battery System}
 
 Architecture 3 combines battery-based energy storage with active current limiting and PID-based throttle control.
 

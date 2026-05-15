@@ -1,0 +1,169 @@
+
+\section{Air Equivalent Test Setup}%
+\label{sec:air design}
+TBD
+
+
+\subsection{Fuel Supply Regulator}
+TBD
+
+\begin{figure}[htp]
+    \begin{subfigure}{0.5\textwidth}%
+        \centering%
+        \begin{tikzpicture}[node distance=2 cm]
+            \node (in) [io] {Input: CGG Air Equivalent};
+            \node (valve) [process, below of=in] {Stellar Space FCU};
+            \node (out) [io, below of=valve] {Output: Fuel Cell Air Equivalent};
+
+            \draw [arrow] (in) -- node[anchor=east] {0.35--3 Bar} (valve);
+            \draw [arrow] (valve) -- node[anchor=east] {0.35--0.5 Bar} (out);
+        \end{tikzpicture}%
+        \caption{FCU}%
+        \label{fc:fcu}%
+    \end{subfigure}%
+    \hfill%
+    \begin{subfigure}{0.5\textwidth}%
+        \centering%
+        \begin{tikzpicture}[node distance=2 cm]
+            \node (in) [io] {Input: CGG Air Equivalent};
+            \node (valve) [process, below of=in] {Pressure Regulator};
+            \node (out) [io, below of=valve] {Output: Fuel Cell Air Equivalent};
+
+            \draw [arrow] (in) -- node[anchor=east] {0.35--3 Bar} (valve);
+            \draw [arrow] (valve) -- node[anchor=east] {0.35--0.5 Bar} (out);
+        \end{tikzpicture}%
+        \caption{Pressure Regulator}%
+        \label{fc:regulator}%
+    \end{subfigure}%
+
+    \caption{Compressed Air Equivalent}%
+    \label{fc:air equivalent}%
+\end{figure}%
+\clearpage
+
+
+\subsection{Cool Gas Generator}
+TBD
+\begin{figure}[htp]
+    \begin{subfigure}{0.5\textwidth}%
+        \centering%
+        \begin{tikzpicture}[node distance=2 cm]
+            \node (in1) [io] {Input: Shop Air};
+            \node (pro1) [process, below of=in1] {Pressure Regulator};
+            \node (pro2) [process, below of=pro1] {Ball Valve `Orifice'};
+            \node (pro3) [process, below of=pro2] {Buffer Volume};
+            \node (out1) [io, below of=pro3] {Output: Simulated CGG Production};
+
+            \draw [arrow] (in1) -- node[anchor=east] {6--8 Bar} (pro1);
+            \draw [arrow] (pro1) -- node[anchor=east] {6.0 Bar} (pro2);
+            \draw [arrow] (pro2) -- node[anchor=east] {0.2 g/min} (pro3);
+            \draw [arrow] (pro3) -- node[anchor=east] {3 Bar Max} (out1);
+        \end{tikzpicture}%
+        \caption{Ball Valve}%
+        \label{fc:ball cgg}%
+    \end{subfigure}%
+    \hfill%
+    \begin{subfigure}{0.5\textwidth}%
+        \centering%
+        \begin{tikzpicture}[node distance=2 cm]
+            \node (in1) [io] {Input: Shop Air};
+            \node (pro1) [process, below of=in1] {Pressure Regulator};
+            \node (pro2) [process, below of=pro1] {Bronckhorst Mass Flow Controller};
+            \node (pro3) [process, below of=pro2] {Buffer Volume};
+            \node (out1) [io, below of=pro3] {Output: Simulated CGG Production};
+
+            \draw [arrow] (in1) -- node[anchor=east] {6--8 Bar} (pro1);
+            \draw [arrow] (pro1) -- node[anchor=east] {6.0 Bar} (pro2);
+            \draw [arrow] (pro2) -- node[anchor=east] {0.2 g/min} (pro3);
+            \draw [arrow] (pro3) -- node[anchor=east] {6 Bar Max} (out1);
+        \end{tikzpicture}%
+        \caption{Bronckhorst}%
+        \label{fc:bronckhorst cgg}%
+    \end{subfigure}%
+
+    \caption{CGG Compressed Air Equivalent}%
+    \label{fc:cgg equivalent}%
+\end{figure}%
+\clearpage
+
+
+\subsection{Fuel Cell}
+TBD
+\begin{figure}[htp]
+    % \centering%
+    \begin{subfigure}{\textwidth}%
+        \centering%
+        \scalebox{0.9}{\begin{tikzpicture}[node distance=2 cm]
+                \node (in) [io] {Input: Regulated air from CGG equivalent};
+                \node (valve) [decision, below of=in, yshift=-5mm] {5/2 Valve};
+                \node (purge) [process, below of=valve, xshift = -3cm] {Purging: Ball Valve `Orifice'};
+                \node (normal) [process, below of=valve, xshift = 3cm] {Normal Operation: Ball Valve `Orifice'};
+                \node (outp) [io, below of=purge] {Output: Purged to atmosphere};
+                \node (outn) [io, below of=normal] {Output: `Used by fuel cell' (released to atmosphere)};
+
+                \draw [arrow] (in) -- node[anchor=east] {0.35--0.5 Bar} (valve);
+                \draw [arrow] (valve) -| (purge);
+                \draw [arrow] (valve) -| (normal);
+                \draw [arrow] (purge) -- node[anchor=east] {0.6 g/min} (outp);
+                \draw [arrow] (normal) -- node[anchor=east] {0.2 g/min} (outn);
+            \end{tikzpicture}}%
+        \caption{Ball Valve, Single Switch}%
+        \label{fc:ball fc}%
+    \end{subfigure}%
+
+    \vspace{1cm}
+    \begin{subfigure}{\textwidth}%
+        \centering%
+        \scalebox{0.9}{\begin{tikzpicture}[node distance=2 cm]
+                \node (in) [io] {Input: Regulated air from CGG equivalent};
+                \node (pvalve) [decision, below of=in, yshift=-5mm, xshift=-5cm] {5/2 Valve};
+                \node (nvalve) [decision, below of=in, yshift=-5mm, xshift=5cm] {5/2 Valve};
+                \node (porifice) [process, below of=pvalve] {Purging: Ball Valve `Orifice'};
+                \node (norifice) [process, below of=nvalve] {Normal Operation: Ball Valve `Orifice'};
+                \node (pout) [io, below of=porifice] {Output: Purged to atmosphere};
+                \node (nout) [io, below of=norifice] {Output: `Used by fuel cell' (released to atmosphere)};
+                \node (block) [io, below of= in, yshift=-4.5cm] {Output:\\Blocked};
+
+
+                \draw [arrow] (in) -| node[anchor=east] {0.35--0.5 Bar} (pvalve);
+                \draw [arrow] (in) -| node[anchor=west] {0.35--0.5 Bar} (nvalve);
+                \draw [arrow] (pvalve) -- (porifice);
+                \draw [arrow] (nvalve) -- (norifice);
+                \draw [arrow] (pvalve) -| (block);
+                \draw [arrow] (nvalve) -|    (block);
+                \draw [arrow] (porifice) -- node[anchor=east] {0.6 g/min} (pout);
+                \draw [arrow] (norifice) -- node[anchor=east] {0.2 g/min} (nout);
+            \end{tikzpicture}}%
+        \caption{Ball Valve, Dual Switch}%
+        \label{fc:ball fc}%
+    \end{subfigure}%
+
+    \vspace{1cm}
+    \begin{subfigure}{\textwidth}%
+        \centering%
+        \scalebox{0.9}{\begin{tikzpicture}[node distance=2 cm]
+                \node (in) [io] {Input: Regulated air from CGG equivalent};
+                \node (valve) [process, below of=in] {Bronckhorst Mass Flow Controller};
+                \node (out) [io, below of=valve] {Output: H2 used or purged by Fuel Cell (released to atmosphere)};
+
+                \draw [arrow] (in) -- node[anchor=east] {0.35--0.5 Bar} (valve);
+                \draw [arrow] (valve) -- node[anchor=east] {Mass flow by Micro Controller} (out);
+            \end{tikzpicture}}%
+        \caption{Bronckhorst}%
+        \label{fc:bronckhorst fc}%
+    \end{subfigure}%
+
+    \caption{Fuel Cell Compressed Air Equivalent}%
+    \label{fc:fc equivalent}%
+\end{figure}%
+
+\begin{tabularx}{\textwidth}{lXX}
+    \toprule
+    \textbf{Test setup}      & \textbf{Capabilities}              & \textbf{Downsides}                                         \\
+    \midrule
+    Ball Valve Single Switch & Test uncontrolled system behaviour & Mass flow is only accurate when input pressure is constant \\
+    Ball Valve Dual Switch   & Test On--Off controlled behaviour  & Mass flow is only accurate when input pressure is constant \\
+    Bronchorst Valve         & Test PID controlled behaviour      & Expensive                                                  \\
+    \bottomrule
+\end{tabularx}
+\newpage

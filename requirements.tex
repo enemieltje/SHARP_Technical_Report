@@ -149,10 +149,10 @@
 % Fill in big range for this system, actual value may be whatever
 
 \REQadd{INT}{5}{M}
-{The electrical interface with the flight controller shall have a voltage of \textbf{XX}~V}
+{The electrical interface with the flight controller shall have a voltage of 18--25.2~V}
 {Tune DC/DC converter to convert fuel cell output voltage to battery and flight controller voltage}
 {Verify using mass voltmeter}
-{Probably 6S LiPo voltage (18--25.2 V). Confirm with Wren}
+{6S LiPo voltage}
 % Ask Wren
 
 \REQadd{INT}{6}{D}
@@ -183,7 +183,7 @@
 {Average pressure at 3 km (0.7 Bar) ±0.1 Bar}
 
 \REQadd{ENV}{4}{D}
-{The system should tolerate relative humidity levels between \textbf{50--80}\%}
+{The system should tolerate relative humidity levels between 50--80\%}
 {Validate fuel cell datasheet and performance}
 {Verify under controlled humidity conditions}
 {Typical Dutch weather, may be adjusted for all weather applications}
@@ -192,17 +192,17 @@
 % Safety Requirements
 % h2
 \REQadd{SAFE}{1}{M}
-{The system shall have a total hydrogen leakage lower than \textbf{XX}}
+{The system shall have a total hydrogen leakage lower than 1\% of the total hydrogen flow rate}
 {Design using COTS components rated for appropriate pressure}
 {Verify with leakage test}
 {}
 % derive from FCU leakage
 
 \REQadd{SAFE}{2}{M}
-{The sytem shall have a maximum burst pressure of \textbf{12?}~bar}
+{The sytem shall have a maximum burst pressure of four times the normal operating pressure}
 {Select parts compatible with this burst pressure}
 {Verify with manufacturer datasheets, potentially also a burst test with compressed air}
-{Value should be normal operation pressure * safety factor (3 * 4 = 12)}
+{}
 
 \REQadd{SAFE}{3}{M}
 {The system shall include overpressure protection}

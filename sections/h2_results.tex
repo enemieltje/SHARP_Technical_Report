@@ -1,0 +1,108 @@
+
+\section{Hydrogen}
+TBD
+
+\clearpage
+% \begin{xltabular}{\textwidth}{XllllX}
+%     % header
+%     \toprule
+%     \textbf{Component}          & \textbf{Pin}         & \textbf{Connector}      & \textbf{Connects to}        & \textbf{Connector}      & \textbf{Wire}\\
+%     \toprule
+%     \endhead
+
+%     % footer
+%     \midrule
+%     \multicolumn{6}{r}{\textit{Continued on next page...}}\\
+%     \bottomrule
+%     \endfoot
+
+%     \bottomrule
+%     \caption{Electrical Connections}
+%     \label{tab:electrical connections}\\
+%     \endlastfoot
+
+%     % content
+%     \multirow{2}{2cm}{Pressure Sensor}
+%     & Vcc         & Attached wire  & 24V                & Terminal Block & Loose Wire\\
+%     & Data        & Attached wire  & 4--20 mA Converter & Terminal Block & included\\
+%     \midrule
+%     \multirow{2}{2cm}{4--20 mA Converter}
+%     & +           & Terminal block & Pressure Sensor    & Attached Wire  & included\\
+%     & -           & Terminal block & GND                & Terminal Block & Loose Wire\\
+%     & Analog Volt & DuPont (f)     & ADC                & DuPont (m)     & included\\
+%     \midrule
+%     ADC
+%     & Analog Volt & DuPont (m)     & 4--20 mA Converter & DuPont (f)     & included\\
+%     & Analog Volt & DuPont (m)     & Battery            & JST-XH~7 (f)   & JST-XH~7 (m) -- DuPont (m) DuPont (ff)\\
+%     & Analog Volt & DuPont (m)     & ---                &                & \\
+%     & Analog Volt & DuPont (m)     & ---                &                & \\
+%     & \iic        & DuPont (f)     & \iic~Bus           & DuPont (m)     & included\\
+%     \midrule
+%     \iic~Bus
+%     & \iic        & DuPont (m)     & ADC                & DuPont (f)     & included\\
+%     & \iic        & DuPont (m)     & Power Meter        & DuPont (m)     & DuPont (ff)\\
+%     & \iic        & DuPont (m)     & Power Meter        & DuPont (m)     & DuPont (ff)\\
+%     & \iic        & DuPont (m)     & Power Meter        & DuPont (m)     & DuPont (ff)\\
+%     & \iic        & DuPont (m)     & ---                &                & \\
+%     & \iic        & DuPont (m)     & ---                &                & \\
+%     & \iic        & DuPont (m)     & ---                &                & \\
+%     & \iic        & DuPont (m)     & ---                &                & \\
+%     & \iic        & DuPont (f)     & Raspberry Pi       & DuPont (m)     & included\\
+%     \midrule
+%     Fuel Cell
+%     & Power Out   & XT60 (f)       & Power Meter 1      & Terminal Block & XT60 (m-)\\
+%     \midrule
+%     \multirow{2}{2cm}{Power Meter 1}
+%     & Power In    & Terminal Block & Fuel Cell          & XT60 (f)       & XT60 (m-)\\
+%     & Power Out   & Terminal Block & Buck Converter 1   & Terminal Block & Loose Wire\\
+%     & \iic        & DuPont (m)     & \iic~Bus           & DuPont (m)     & DuPont (ff)\\
+%     \midrule
+%     \multirow{2}{2cm}{Buck Converter 1}
+%     & Power In    & Terminal Block & Power Meter 1      & Terminal Block & Loose Wire\\
+%     & Power Out   & Terminal Block & Relay              & Terminal Block & Loose Wire\\
+%     \midrule
+%     Relay
+%     & Common      & Terminal Block & Buck Converter 1   & Terminal Block & Loose Wire\\
+%     & NO          & Terminal Block & 24V                & Terminal Block & Loose Wire\\
+%     & Control     & PCB Hole       & Raspberry Pi       & DuPont (m)     & DuPont (mf)\\
+%     \midrule
+%     \multirow{3}{2cm}{Power Meter 2}
+%     & Power In    & Terminal Block & Battery            & XT60 (f)       & XT60 (m-)\\
+%     & Power Out   & Terminal Block & 24V                & Terminal Block & Loose Wire\\
+%     & \iic        & DuPont (m)     & \iic~Bus           & DuPont (m)     & DuPont (ff)\\
+%     \midrule
+%     Battery
+%     & Power       & XT60 (f)       & Power Meter 2      & Terminal Block & XT60 (m-)\\
+%     & Balance Leads & JST-XH~7 (f) & ADC                & DuPont (m)     & JST-XH~7 (m) -- DuPont (m) DuPont (ff)\\
+%     \midrule
+%     \multirow{2}{2cm}{Power Meter 3}
+%     & Power In    & Terminal Block & ESC                & Attached Wire  & included\\
+%     & Power Out   & Terminal Block & 24V                & Terminal Block & Loose Wire\\
+%     \midrule
+%     ESC
+%     & Power In    & Attached Wire  & Power Meter 3      & Terminal Block & included\\
+%     & 3 Phase Out & BLDC Plug (f)  & BLDC               & BLDC Plug (m)  & included\\
+%     & Throttle    & DuPont (f)     & Raspberry Pi       & DuPont (m)     & included\\
+%     & BEC         & DuPont (f)     & ---                &                &\\
+%     & Active Break& DuPont (f)     & ---                &                &\\
+%     \midrule
+%     BLDC
+%     & 3 Phase In  & BLDC Plug (m)  & ESC                & BLDC Plug (f)  & included\\
+%     \midrule
+%     \multirow{2}{2cm}{Buck Converter 2}
+%     & Power In    & Terminal Block & 24V                & Terminal Block & Loose Wire \\
+%     & Power Out   & Terminal Block & Raspberry Pi       & DuPont (m)     & DuPont (f-)\\
+%     \midrule
+%     Raspberry Pi
+%     & 5V In       & DuPont (m)     & Buck Converter 2   & Terminal Block & DuPont (f-)\\
+%     & \iic        & DuPont (m)     & \iic~Bus           & DuPont (f)     & included\\
+%     \midrule
+%     24V Bus
+%     & Power       & Terminal Block & Pressure Sensor    & Terminal Block & Loose Wire\\
+%     & Power       & Terminal Block & Relay              & Terminal Block & Loose Wire\\
+%     & Power       & Terminal Block & Power Meter 2      & Terminal Block & Loose Wire\\
+%     & Power       & Terminal Block & Power Meter 3      & Terminal Block & Loose Wire\\
+%     & Power       & Terminal Block & Buck Converter 2   & Terminal Block & Loose Wire\\
+% \end{xltabular}
+
+% \newpage
