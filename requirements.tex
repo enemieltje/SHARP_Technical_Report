@@ -1,6 +1,6 @@
 \DTLnewdb{requirements}
 
-\newcommand{\REQadd}[7]{
+\newcommand{\REQadd}[9]{
     \DTLnewrow{requirements}
     \DTLnewdbentry{requirements}{type}{#1}
     \DTLnewdbentry{requirements}{id}{#1-#2}
@@ -9,6 +9,8 @@
     \DTLnewdbentry{requirements}{approach}{#5}
     \DTLnewdbentry{requirements}{verification}{#6}
     \DTLnewdbentry{requirements}{comment}{#7}
+    \DTLnewdbentry{requirements}{vresult}{#8}
+    \DTLnewdbentry{requirements}{vlevel}{#9}
 }
 
 \newcommand{\REQ}[2]{%
@@ -47,6 +49,8 @@
 {}
 {}
 {}
+{}
+{}
 
 % Performance Requirements
 \REQadd{PERF}{1}{M}
@@ -54,12 +58,16 @@
 {Ensure fuel cell meets power specifications from manufactures datasheet}
 {Use wattmeter to verify}
 {}
+{}
+{}
 
 \REQadd{PERF}{2}{M}
 {The system shall be able to supply loads varying from 140--220 W}
 {Use a backup battery to provide power during peak loads}
 {Use motor with propeller as variable load and wattmeter to verify}
 {Variable load profile will be dependant on mission profile. Determine representative load profile with Wren Aerospace.}
+{}
+{}
 
 % \REQadd{PERF}{3}{M}
 % {The system shall provide an output voltage within ±5\% of nominal (INT-5)}
@@ -73,6 +81,8 @@
 {Use LiPo battery buffering}
 {Verify using oscilloscope and step load changes}
 {Response time should be compatible with flight controller.}
+{}
+{}
 % System load response time shall be identified
 
 
@@ -87,11 +97,15 @@
 {Choose a CGG size appropriate according to calculations}
 {Use mass flow sensor to verify fuel consumption of fuel cell}
 {}
+{}
+{}
 
 \REQadd{OP}{2}{D} % Physical requirements?
 {The mass of the power generation and feed system should not exceed 5 kg}
 {Divide mass budget over subsystems and select parts that fit said mass budget}
 {Use scale to verify}
+{}
+{}
 {}
 
 \REQadd{OP}{3}{M}
@@ -99,23 +113,31 @@
 {Implement feedback loop using mass flow sensor}
 {Verify by step response testing}
 {}
+{}
+{}
 
 \REQadd{OP}{4}{M}
 {The system shall support controlled startup and shutdown procedures}
 {Select a fuel cell with controller and/or develop startup/shutdown sequence logic}
 {Verify through repeated cycling tests}
 {Most FCs come with a controller that does this}
+{}
+{}
 
 \REQadd{OP}{5}{M}
 {The system shall provide minimal telemetry data including fuel content to the flight controller}
 {Integrate sensors and communication interface}
 {Verify through data logging}
 {Translate the fuel content to a `battery percentage' which can be communicated to the flight controller}
+{}
+{}
 
 \REQadd{OP}{6}{O}
 {The system may provide additional telemetry data to the flight controller}
 {Integrate sensors and communication interface}
 {Verify through data logging}
+{}
+{}
 {}
 
 % Interface Requirements
@@ -127,24 +149,32 @@
 {Design and select parts that fit in the given volume}
 {Size measurement using calipers or other appropriate measurement devices}
 {Verify with Wren Aerospace if this volume is also valid for the fuel cell system}
+{}
+{}
 
 \REQadd{INT}{2}{D}
 {The diameter of the energy storage system should not exceed 130~mm}
 {Design and select parts that fit in the given diameter}
 {Size measurement using calipers or other appropriate measurement devices}
 {Verify with Wren Aerospace if this diameter is also valid for the fuel cell system}
+{}
+{}
 
 \REQadd{INT}{3}{M}
 {The fluid interface with the CGG shall normal operating pressure of 3~bar}
 {Select parts compatible with this pressure}
 {Leakage test with compressed air}
 {Exact value is dependant on buffer volume, 0.1 L ---> 3 bar}
+{}
+{}
 % Split normal operating pressure and max burst pressure (~2.5 x normal) bespreken met Joost/Toby
 
 \REQadd{INT}{4}{M}
 {The fluid interface with the CGG shall accept a mass flow rate of 0.18--0.27~g/min}
 {Control fuel cell to use this mass flow rate of hydrogen using feedback control}
 {Verify using mass flow sensor}
+{}
+{}
 {}
 % Fill in big range for this system, actual value may be whatever
 
@@ -153,12 +183,16 @@
 {Tune DC/DC converter to convert fuel cell output voltage to battery and flight controller voltage}
 {Verify using mass voltmeter}
 {6S LiPo voltage}
+{}
+{}
 % Ask Wren
 
 \REQadd{INT}{6}{D}
 {The system shall include standard electrical connectors compatible with the drone platform}
 {Select connectors per platform specification}
 {Visual and mechanical inspection}
+{}
+{}
 {}
 % Ask Wren
 
@@ -168,12 +202,16 @@
 {Verify fuel cell performance at appropriate atmospheric conditions}
 {}
 {Translate to spec demands for fuel cell}
+{}
+{}
 
 \REQadd{ENV}{2}{D}
 {The system shall operate at a temperature between -35~°C and 25~°C}
 {Select components rated for temperature range}
 {Verify in environmental chamber}
 {Average temperature at 3 km (-4.5 °C) ±30 °C}
+{}
+{}
 % Avg standard atm +- 30 deg
 
 \REQadd{ENV}{3}{D}
@@ -181,12 +219,16 @@
 {Validate fuel cell air supply and performance}
 {Test under reduced pressure conditions}
 {Average pressure at 3 km (0.7 Bar) ±0.1 Bar}
+{}
+{}
 
 \REQadd{ENV}{4}{D}
 {The system should tolerate relative humidity levels between 50--80\%}
 {Validate fuel cell datasheet and performance}
 {Verify under controlled humidity conditions}
 {Typical Dutch weather, may be adjusted for all weather applications}
+{}
+{}
 
 
 % Safety Requirements
@@ -196,6 +238,8 @@
 {Design using COTS components rated for appropriate pressure}
 {Verify with leakage test}
 {}
+{}
+{}
 % derive from FCU leakage
 
 \REQadd{SAFE}{2}{M}
@@ -203,17 +247,23 @@
 {Select parts compatible with this burst pressure}
 {Verify with manufacturer datasheets, potentially also a burst test with compressed air}
 {}
+{}
+{}
 
 \REQadd{SAFE}{3}{M}
 {The system shall include overpressure protection}
 {Integrate pressure relief valve}
 {Verify using controlled pressure increase test}
 {Value should be lower than burst pressure}
+{}
+{}
 
 \REQadd{SAFE}{4}{M}
 {Expected hydrogen leakage should be vented along a safe path}
 {Connect pressure relief and purge output to tube that leads away from people}
 {Verify using visual inspection}
+{}
+{}
 {}
 % expected h2 leakage vented safely
 
@@ -221,5 +271,7 @@
 {The system should always be operated in appropriately ventilated areas or outside}
 {Always work outside when working with hydrogen}
 {Verify using visual inspection}
+{}
+{}
 {}
 % System should always be operated outside/ventilated space

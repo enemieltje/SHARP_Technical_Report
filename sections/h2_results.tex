@@ -1,6 +1,70 @@
 
-\section{Hydrogen}
-TBD
+\section{Hydrogen Test Bench}
+
+\emph{The hydrogen test bench is an integrated system designed to verify the behaviour of the fuel cell, hydrogen generator and battery during different load conditions. Unfortunately, due to hydrogen not being available in time, tests that require hydrogen have not been performed yet during the writing of this report. As such, this chapter contains a description of which tests are planned to be performed, how they are to be performed and the results they are expected to produce. The test bench itself has been constructed and tested without hydrogen systems. The results of that test are presented in this chapter, and show what kind of data the hydrogen tests will produce.}
+
+\subsection*{Testing Goals}
+The hydrogen test bench is designed to be a testing environment for multiple different tests table~\ref{tab:h2 test goals} summarises the different tests that are planned to be performed and the goal of each individual test.
+
+\begin{table}[htp]
+    \begin{tabularx}{\textwidth}{lX}
+        \toprule
+        \textbf{Name} & \textbf{Goal} \\
+
+        \midrule
+        Data acquisition Test
+        & Verify all sensors report measurements \\
+        & Verify sensor data can be exported to a useful format \\
+        % & Verify the power draw of the load \\
+
+        % \midrule
+        % Sensor Calibration Test
+        % & Verify all sensors report measurements \\
+        % & Verify all sensors are calibrated \\
+
+        \midrule
+        Fuel Cell Test
+        & Verify the output voltage \\
+        & Verify the output power \\
+        & Verify the fuel consumption \\
+        & Verify the purging frequency \\
+        & Verify the purge event length \\
+        & Verify the fuel cell purging frequency \\
+
+        \midrule
+        CGG Equivalent Test
+        & Verify the the CGG equivalent can provide sufficient hydrogen during purge events \\
+        & Verify the control scheme can maintain correct pressure in the CGG buffer volume \\
+
+        \midrule
+        Hybrid Battery Test
+        & Verify the fuel cell can charge the battery during low load conditions \\
+        & Verify the the battery can provide extra power during high load conditions \\
+        & Verify the fuel cell cannot over charge the battery when the battery is nearly full \\
+
+        \midrule
+        Mission Scenario Test
+        & Verify all subsystems perform normally during a load that simulates mission scenario conditions \\
+
+        \bottomrule
+    \end{tabularx}%
+    \caption{Goals of tests to be performed with the Hydrogen Test Bench.}%
+    \label{tab:h2 test goals}%
+\end{table}
+
+\subsection*{Data acquisition Test Results}
+During this test a brushless DC motor will be driven using the LiPo battery. The motor first performs a startup sequence, after which the throttle is increased to 100\%. As no load is attached to the motor the power draw is still quite low. The motor is then squeezed by hand to increase the load and thus its power draw. Finally the throttle is reduced to 0\% and the power shut off.
+
+For this test, the fuel cell and hydrogen systems have been disconnected. A BLDC that was available at Stellar Space Industries has been used as a load. This BLDC operates at 12 Volt rather than 24 Volt, as such and additional buck converter was used to account for this. A propeller was not available for this test, therefore the load cell that measures thrust has also not been connected.
+
+Figure~\ref{fig:data power throttle} presents a graph that displays the power draw and throttle of the motor. The motor startup sequence is visible in the throttle which jumps to its lowest position for a while. After that, the throttle is increased to its maximum position during which the power draw also rises. Then the motor is squeezed by hand which dramatically increases its power draw. Finally the throttle is reduced to its lowest position and the power draw also drops to zero.
+
+\begin{figure}[htp]
+    \todo{Insert graphs with results}
+
+    \caption{Power draw and throttle during Data Acquisition test}%
+    \label{fig:data power throttle}%
+\end{figure}
 
 \clearpage
 % \begin{xltabular}{\textwidth}{XllllX}

@@ -6,7 +6,48 @@ TBD
 \input{project plan sections/01_project_background.tex}
 \input{project plan sections/02_project_objectives.tex}
 
-\section{Mission Scenario??}%
+\section{Reference Mission Profile and Design Assumptions}%
 \label{sec:mission_scenario}
-TBD
+At the time of this project, the UAV platform developed by Wren Aerospace was still under active development and no final operational mission profile had yet been defined. As a result, a representative reference mission profile was established to support the design, simulation and validation of the SHARP-PS power generation and feed system.
+
+The purpose of this reference mission profile is not to define the final operational use-case of the UAV, but rather to provide a consistent set of engineering assumptions from which system requirements and design parameters can be derived. The assumptions presented in this section are based on preliminary performance targets provided by Wren Aerospace and discussions with project stakeholders.
+
+The target platform is a fixed-wing electrically propelled UAV intended for long-endurance operation. The primary design objective is to demonstrate the feasibility of extending UAV mission duration using a hydrogen fuel cell based power generation system integrated with Solid Flow’s cool gas generator and Stellar Space Industries’ flow control unit.
+
+\begin{table}[htp]
+    \centering
+    \begin{tabularx}{\textwidth}{lcX}
+        \toprule
+        \textbf{Parameter} & \textbf{Value} & \textbf{Description} \\
+        \midrule
+        UAV Configuration & Fixed-wing &
+        Reference platform provided by Wren Aerospace \\
+
+        Target Endurance & 13--16 h &
+        Desired mission duration for long-endurance operation \\
+
+        Continuous Power Demand & 200 W &
+        Nominal electrical power demand during normal operation \\
+
+        Peak Power Demand & 220 W &
+        Expected power demand during climb or manoeuvring \\
+
+        Cruise Power Demand & 140--180 W &
+        Estimated steady-state power demand during cruise flight \\
+
+        Electrical Bus Voltage & 24 V &
+        Equivalent to a 6S LiPo based propulsion system \\
+
+        Hydrogen Storage Method & \ce{NaBH4} CGG &
+        Hydrogen generated on demand using Solid Flow's cool gas generator \\
+        Operating Altitude & Up to 3 km &
+        Target altitude provided by Wren Aerospace \\
+
+        Mission Profile & Climb + Cruise &
+        Representative profile consisting of a high-power climb phase followed by long-duration cruise \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Reference mission profile and design assumptions}
+    \label{tab:mission_assumptions}
+\end{table}
 \newpage
