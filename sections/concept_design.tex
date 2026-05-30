@@ -161,48 +161,68 @@ Architecture 3 combines battery-based energy storage with active current limitin
 
 The PID controller continuously regulates the fuel cell operating point in response to load variations, resulting in smoother power delivery and improved dynamic response. The battery acts as a supplementary energy buffer during transient operating conditions.
 
-Compared to the previous architectures, this concept offers superior electrical stability and controllability. However, the increased control performance comes at the cost of higher electronic and software complexity.
+% Compared to the previous architectures, this concept offers superior electrical stability and controllability. However, the increased control performance comes at the cost of higher electronic and software complexity.
+Compared to the previous architectures, this concept offers superior electrical stability and controllability. The continuously regulated fuel-cell output enables smoother power delivery and reduces pressure fluctuations within the hydrogen system.
+
+However, implementation of this architecture requires a continuously controllable power regulation stage capable of handling up to 200 W. A survey of commercially available solutions did not identify a suitable off-the-shelf component that met the system requirements. Consequently, implementation would require the design and validation of custom power electronics.
+
+Although technically feasible, the development of custom power electronics was considered outside the scope of this graduation project. The required electronics design effort would introduce significant development risk and reduce the time available for experimental validation of the hydrogen system itself.
+
 
 \section{Architecture Trade-Off and Selection}
 
-To objectively compare the proposed architectures, a trade-off analysis was performed. The concepts were evaluated on several criteria derived from the system objectives.
+% To objectively compare the proposed architectures, a trade-off analysis was performed. The concepts were evaluated on several criteria derived from the system objectives.
 
-The evaluation criteria are:
+% The evaluation criteria are:
 
-\begin{itemize}
-    \item System complexity;
-    \item Power stability;
-    \item Scalability;
-    \item Efficiency;
-    \item Safety;
-    \item Mass and volume;
-    \item Reliability.
-\end{itemize}
+% \begin{itemize}
+%     \item Expected development Time;
+%     \item Expected development Cost;
+%     \item Power stability;
+%     \item Scalability;
+%     \item Efficiency;
+%     \item Safety;
+%     \item Mass and volume;
+%     \item Reliability.
+% \end{itemize}
 
-Each criterion was assigned a weighting factor based on its relative importance to the intended application. The architectures were subsequently scored on a scale from 1 to 5, where 5 represents the best performance.
+% Each criterion was assigned a weighting factor based on its relative importance to the intended application. The architectures were subsequently scored on a scale from 1 to 5, where 5 represents the best performance.
+The proposed architectures were evaluated using a weighted trade-off analysis. In addition to traditional performance metrics such as efficiency, safety, and reliability, implementation feasibility was included as a key criterion. The purpose of the SHARP-PS project was not only to identify an optimal system architecture, but also to realise and experimentally validate the selected architecture within the available project duration and technical scope.
+
+Implementation feasibility therefore considers the availability of required components, the development effort required for integration, and the technical risks associated with developing custom hardware. Architectures requiring substantial electronics development were assigned lower scores for this criterion, as custom power electronics design fell outside the intended scope of the project.
 
 \begin{table}[htp]
     \centering
     \begin{tabular}{lcccc}
         \toprule
-        \textbf{Criterion} & \textbf{Weight} & \textbf{Arch. 1} & \textbf{Arch. 2} & \textbf{Arch. 3} \\
+        \textbf{Criterion}         & \textbf{Weight} & \textbf{Arch. 1} & \textbf{Arch. 2} & \textbf{Arch. 3} \\
         \midrule
-        Complexity         & 5               & 4                & 5                & 2                \\
-        Power Stability    & 3               & 3                & 2                & 5                \\
-        Efficiency         & 4               & 3                & 3                & 4                \\
-        Safety             & 5               & 3                & 4                & 4                \\
-        Mass/Volume        & 4               & 2                & 4                & 3                \\
-        Reliability        & 4               & 3                & 3                & 4                \\
+        Implementation Feasibility & 5               & 4                & 5                & 1                \\
+        System Complexity          & 3               & 4                & 5                & 3                \\
+        Power Stability            & 3               & 3                & 2                & 5                \\
+        Efficiency                 & 4               & 3                & 3                & 4                \\
+        Safety                     & 5               & 3                & 4                & 4                \\
+        Mass/Volume                & 4               & 2                & 4                & 3                \\
+        Reliability                & 4               & 3                & 3                & 4                \\
         \midrule
-        Weighted Score     &                 & 63               & 74               & 65               \\
+        Weighted Score             &                 & 88               & 106              & 93               \\
         \bottomrule
     \end{tabular}
     \caption{Trade-off analysis of the proposed architectures}
     \label{tab:tradeoff}
 \end{table}
 
-Based on the trade-off analysis, Architecture 2 achieved the highest overall score and was therefore selected for further development.
+% Based on the trade-off analysis, Architecture 2 achieved the highest overall score and was therefore selected for further development.
 
 % Although Architecture 3 introduces increased electronic and software complexity, it provides the best overall balance between power stability, controllability, efficiency, and operational robustness. The combination of battery buffering and PID-controlled fuel cell operation is expected to provide stable system behaviour under varying load conditions.
 
-The selected architecture will therefore serve as the baseline concept for the detailed system design presented in the following chapters.
+The trade-off analysis shows that Architecture 3 provides the best technical performance in terms of power stability, controllability, and reliability. However, achieving this performance would require the development of custom power electronics capable of continuously regulating fuel-cell power output at the required power levels.
+
+A preliminary investigation was conducted into commercially available current-limiting and power-regulation solutions. No suitable off-the-shelf solution was identified. Implementing Architecture 3 would therefore require substantial electronics development, introducing significant project risk and extending the scope beyond that of the present graduation project.
+
+Architecture 2 provides lower control performance but can be realised using commercially available components and straightforward control logic. This architecture enables the primary project objective—experimental validation of the hydrogen power generation and feed system—to be achieved within the available time, resources, and expertise.
+
+For this reason, Architecture 2 was selected as the baseline architecture for detailed design and testing.
+
+
+% The selected architecture will therefore serve as the baseline concept for the detailed system design presented in the following chapters.
