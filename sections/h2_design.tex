@@ -134,8 +134,18 @@ Figure~\ref{fc:electric test} shows the electrical architecture of the test benc
     \caption{Electronics of the Hydrogen Test Setup}
     \label{fc:electric test}
 \end{figure}
-\todo{Picture of real world system}
+% \todo{Picture of real world system}
+
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=\textwidth]{media/rl h2 setup.jpg}
+    \caption{Picture of the Hydrogen Test Setup}
+    \label{fig:rl h2 test}
+\end{figure}
+
 \clearpage
+
 
 
 \subsection*{Fuel Cell Selection}
@@ -193,11 +203,27 @@ As the power flow behaviour between the fuel cell, battery and load is one of th
 
 
 \subsection*{Load Emulation}
-To simulate the load of a UAV propulsion system, a brushless DC motor and propeller have been selected to draw 100--300 Watts. The exact load is dependent on the throttle of the motor which can be controlled using an Electronic Speed Controller and a microcontroller. This allows different load profiles to be tested. The motor and propeller will be mounted on a load cell, which allows the produced thrust to be measured.
+To simulate the load of a UAV propulsion system, a brushless DC motor and propeller have been selected to draw 100--300 Watts. The exact load is dependent on the throttle of the motor which can be controlled using an Electronic Speed Controller (ESC) and a microcontroller. This allows different load profiles to be tested. The motor and propeller will be mounted on a load cell, which allows the produced thrust to be measured.
 
 The exact motor and propeller that are used heavily influence the efficiency of the system. To make these results as representative as possible, the motor and propeller should be the same as those to be used in the eventual UAV. To achieve this, Wren Aerospace who are developing the UAV have been contacted to provide specifications for the motor and propeller. Until that time, an arbitrary motor that was available from different projects will be used.
 
+\clearpage
 \subsection*{User Interaction and Data acquisition}
-\todo{Describe web interface and database}
+The hydrogen test bench is controlled by a Raspberry Pi. This Raspberry Pi is in charge of performing startup and shutdown sequences, controlling the fuel cell and motor depending on user input, collecting measured values from all sensors and presenting those values in a useful format.
+On startup it opens an SQLite database, starts the motor and ESC, initializes the fuel-cell power system, and finally starts a small HTTP server that serves the web interface. During shutdown, the program stops the sensors, disconnects the database, disables the motor output, and turns off the controlled devices.
+
+Sensor acquisition is handled by independent sensor objects running in background threads. The base sensor class periodically calls \texttt{get\_value()} which is implemented differently for each kind of sensor. It then stores the latest value, and writes it at a configurable frequency to the database. Power is measured with INA226 power meters, which store power, voltage, and current for the fuel cell, battery, and motor load. Analog values are read through an ADS1115 converter: the battery state of charge is estimated from battery voltage and the 4--20 mA pressure signal from the pressure sensor is converted to a voltage and then read by the ADS1115 as well. The drone throttle is also sampled as a sensor value. Each sample is sent to a database queue so that all SQLite writes are performed by one database worker thread. The database contains a \texttt{sensor\_samples} table containing timestamped sensor values and a \texttt{test\_runs} table for run metadata, such as name, start time, end time, and notes. Each sample in the \texttt{sensor\_samples} table is linked to a test run by \texttt{run\_id}.
+
+The web interface is shown in figure~\ref{fig:h2 dashboard}. The web interface is served by the Python HTTP server and consists of a static HTML dashboard with JavaScript controls and Chart.js graphs. It polls API endpoints once per second to retrieve the latest fuel-cell, battery, motor, pressure, thrust, and state-of-charge values. These values are shown numerically and plotted live in rolling charts. The interface also provides control buttons to enable or disable the fuel cell and drone, arm or calibrate the ESC, and set the motor throttle through a slider.
+
+Tests are organized as test runs. From the dashboard, the user can start a new test run, enter a name and notes, save updated metadata, stop the active run, and view previous runs with their dates and sample counts. While a test run is active, incoming sensor samples are automatically stored with the \texttt{run\_id} corresponding to that test run. Results can be acquired by downloading a CSV file for the current or any previous test run. For export, the program reads all samples belonging to the selected test run, pivots the data so each sensor becomes a named column, and returns the timestamped measurement table as a CSV file for further analysis. Results can also be exported by downloading an excel file, which presents the same data as the CSV file and includes rudimentary graphs visualising the data.
+
+% While the graphs are more useful than the raw data, CSV files are more flexible and more lightweight, which can be useful when a high sampling rate or long run time is required as Excel might struggle with excessively large datasets.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=\textwidth]{media/h2_dashboard.png}
+    \caption{Webinterface of the Hydrogen Test Setup}
+    \label{fig:h2 dashboard}
+\end{figure}
 
 \clearpage

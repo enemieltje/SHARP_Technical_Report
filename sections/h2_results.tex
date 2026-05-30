@@ -9,12 +9,12 @@ The hydrogen test bench is designed to be a testing environment for multiple dif
 \begin{table}[htp]
     \begin{tabularx}{\textwidth}{lX}
         \toprule
-        \textbf{Name} & \textbf{Goal} \\
+        \textbf{Name} & \textbf{Goal}                                                                                   \\
 
         \midrule
         Data acquisition Test
-        & Verify all sensors report measurements \\
-        & Verify sensor data can be exported to a useful format \\
+                      & Verify all sensors report measurements                                                          \\
+                      & Verify sensor data can be exported to a useful format                                           \\
         % & Verify the power draw of the load \\
 
         % \midrule
@@ -24,27 +24,27 @@ The hydrogen test bench is designed to be a testing environment for multiple dif
 
         \midrule
         Fuel Cell Test
-        & Verify the output voltage \\
-        & Verify the output power \\
-        & Verify the fuel consumption \\
-        & Verify the purging frequency \\
-        & Verify the purge event length \\
-        & Verify the fuel cell purging frequency \\
+                      & Verify the output voltage                                                                       \\
+                      & Verify the output power                                                                         \\
+                      & Verify the fuel consumption                                                                     \\
+                      & Verify the purging frequency                                                                    \\
+                      & Verify the purge event length                                                                   \\
+                      & Verify the fuel cell purging frequency                                                          \\
 
         \midrule
         CGG Equivalent Test
-        & Verify the the CGG equivalent can provide sufficient hydrogen during purge events \\
-        & Verify the control scheme can maintain correct pressure in the CGG buffer volume \\
+                      & Verify the the CGG equivalent can provide sufficient hydrogen during purge events               \\
+                      & Verify the control scheme can maintain correct pressure in the CGG buffer volume                \\
 
         \midrule
         Hybrid Battery Test
-        & Verify the fuel cell can charge the battery during low load conditions \\
-        & Verify the the battery can provide extra power during high load conditions \\
-        & Verify the fuel cell cannot over charge the battery when the battery is nearly full \\
+                      & Verify the fuel cell can charge the battery during low load conditions                          \\
+                      & Verify the the battery can provide extra power during high load conditions                      \\
+                      & Verify the fuel cell cannot over charge the battery when the battery is nearly full             \\
 
         \midrule
         Mission Scenario Test
-        & Verify all subsystems perform normally during a load that simulates mission scenario conditions \\
+                      & Verify all subsystems perform normally during a load that simulates mission scenario conditions \\
 
         \bottomrule
     \end{tabularx}%
@@ -60,8 +60,8 @@ For this test, the fuel cell and hydrogen systems have been disconnected. A BLDC
 Figure~\ref{fig:data power throttle} presents a graph that displays the power draw and throttle of the motor. The motor startup sequence is visible in the throttle which jumps to its lowest position for a while. After that, the throttle is increased to its maximum position during which the power draw also rises. Then the motor is squeezed by hand which dramatically increases its power draw. Finally the throttle is reduced to its lowest position and the power draw also drops to zero.
 
 \begin{figure}[htp]
-    \todo{Insert graphs with results}
-
+    \centering%
+    \includegraphics[width=\textwidth]{media/h2 results.png}%
     \caption{Power draw and throttle during Data Acquisition test}%
     \label{fig:data power throttle}%
 \end{figure}

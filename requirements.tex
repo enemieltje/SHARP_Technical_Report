@@ -1,5 +1,14 @@
 \DTLnewdb{requirements}
 
+\newcommand{\REQvlevel}[1]{
+    \ifstrequal{#1}{none}{\cellcolor{red!25} Not Validated}{}
+    \ifstrequal{#1}{theory}{\cellcolor{orange!25} Validated in Theory}{}
+    \ifstrequal{#1}{pending}{\cellcolor{yellow!30} Test Pending}{}
+    \ifstrequal{#1}{equivalent}{\cellcolor{yellow!20} Tested with Equivalent System}{}
+    \ifstrequal{#1}{manufacturer}{\cellcolor{green!20} Validated by Manufacturer}{}
+    \ifstrequal{#1}{full}{\cellcolor{green!30} Validated with Test}{}
+}
+
 \newcommand{\REQadd}[9]{
     \DTLnewrow{requirements}
     \DTLnewdbentry{requirements}{type}{#1}
@@ -36,6 +45,27 @@
     \end{tabularx}
 }
 
+\newcommand{\REQvtableRow}[1]{
+    % \DTLifeq{\REQ{#1}{id}}{Type-ID}{}{
+    \begin{tabular}{p{1.5cm}p{11.1cm}p{2cm}}
+        \midrule
+        \REQ{#1}{id} & \REQ{#1}{vresult} & \REQ{#1}{vlevel} \\%
+    \end{tabular}
+    % }
+}
+
+\newcommand{\REQvtable}{
+    % \begin{tabularx}{\textwidth}{lXl}
+    %     \toprule
+    %     \textbf{Req ID} & \textbf{Validation Result} & \textbf{Level} \\
+    % \end{tabularx}
+    \DTLforeach{requirements}
+    {\type=type,\id=id}
+    {
+        \REQvtableRow{\id}%
+    }
+}
+
 \newcommand{\REQcategory}[1]{
     \DTLforeach[\DTLiseq{\type}{#1}]{requirements}
     {\type=type,\id=id}
@@ -49,8 +79,8 @@
 {}
 {}
 {}
-{}
-{}
+{Requirement Validation}
+{Level}
 
 % Performance Requirements
 \REQadd{PERF}{1}{M}
@@ -58,16 +88,16 @@
 {Ensure fuel cell meets power specifications from manufactures datasheet}
 {Use wattmeter to verify}
 {}
-{}
-{}
+{According to the manufacturer datasheet, the fuel cell will be able to deliver 240 W continuous power. Solid flow is designing their CGG in a modular way where the hydrogen generation rate can be configured to be sufficient. This is limited by maximum outer diameter. Solid Flow is confident they can create a CGG that generates hydrogen at a sufficient rate within the given size constrains.}
+{\REQvlevel{manufacturer}}
 
 \REQadd{PERF}{2}{M}
 {The system shall be able to supply loads varying from 140--220 W}
 {Use a backup battery to provide power during peak loads}
 {Use motor with propeller as variable load and wattmeter to verify}
 {Variable load profile will be dependant on mission profile. Determine representative load profile with Wren Aerospace.}
-{}
-{}
+{A hybrid battery is used that can supply up to 3000 W during peak loads and can charge during low load conditions.}
+{\REQvlevel{full}}
 
 % \REQadd{PERF}{3}{M}
 % {The system shall provide an output voltage within ±5\% of nominal (INT-5)}
@@ -81,8 +111,8 @@
 {Use LiPo battery buffering}
 {Verify using oscilloscope and step load changes}
 {Response time should be compatible with flight controller.}
-{}
-{}
+{A hybrid battery is used to decouple the load response time from the fuel cell response time.}
+{\REQvlevel{full}}
 % System load response time shall be identified
 
 
@@ -97,48 +127,48 @@
 {Choose a CGG size appropriate according to calculations}
 {Use mass flow sensor to verify fuel consumption of fuel cell}
 {}
-{}
-{}
+{Solid flow is designing their CGG in a modular way where the total hydrogen capacity can be configured to be sufficient. This is limited by available volume. Solid Flow is unsure whether they can create a CGG with the required capacity in the given volume constrains.}
+{\REQvlevel{none}}
 
 \REQadd{OP}{2}{D} % Physical requirements?
 {The mass of the power generation and feed system should not exceed 5 kg}
 {Divide mass budget over subsystems and select parts that fit said mass budget}
 {Use scale to verify}
 {}
-{}
-{}
+{The cumulative weight of the major components of the hydrogen test bench does not exceed 3 kg. The weight of the final system will deviate only slightly.}
+{\REQvlevel{full}}
 
 \REQadd{OP}{3}{M}
 {The system shall include a control system to regulate hydrogen mass flow}
 {Implement feedback loop using mass flow sensor}
 {Verify by step response testing}
 {}
-{}
-{}
+{An On-Off control system has been shown to work using the compressed air equivalent. Integrated testing with the fuel cell is yet to be performed.}
+{\REQvlevel{equivalent}}
 
 \REQadd{OP}{4}{M}
 {The system shall support controlled startup and shutdown procedures}
 {Select a fuel cell with controller and/or develop startup/shutdown sequence logic}
 {Verify through repeated cycling tests}
 {Most FCs come with a controller that does this}
-{}
-{}
+{The selected fuel cell includes its own controller that manages startup and shutdown procedures of the fuel cell. The python simulation demonstrated working startup and shutdown procedures for a fully integrated system.}
+{\REQvlevel{full}}
 
 \REQadd{OP}{5}{M}
 {The system shall provide minimal telemetry data including fuel content to the flight controller}
 {Integrate sensors and communication interface}
 {Verify through data logging}
 {Translate the fuel content to a `battery percentage' which can be communicated to the flight controller}
-{}
-{}
+{The pyhton simulation demonstrated how the fuel content can be calculated from CGG ignition time. The hydrogen test bench demonstrated data acquisition and communication over \iic and http which can be translated to serial if required by a flight controller}
+{\REQvlevel{equivalent}}
 
 \REQadd{OP}{6}{O}
 {The system may provide additional telemetry data to the flight controller}
 {Integrate sensors and communication interface}
 {Verify through data logging}
 {}
-{}
-{}
+{The hydrogen test bench demonstrated data acquisition and communication over \iic and http which can be translated to serial if required by a flight controller}
+{\REQvlevel{full}}
 
 % Interface Requirements
 % fuselage
@@ -149,24 +179,24 @@
 {Design and select parts that fit in the given volume}
 {Size measurement using calipers or other appropriate measurement devices}
 {Verify with Wren Aerospace if this volume is also valid for the fuel cell system}
-{}
-{}
+{Solid flow is designing their CGG in a modular way where the total hydrogen capacity can be configured to be sufficient. This is limited by available volume. Solid Flow is unsure whether they can create a CGG with the required capacity in the given volume constrains.}
+{\REQvlevel{none}}
 
 \REQadd{INT}{2}{D}
 {The diameter of the energy storage system should not exceed 130~mm}
 {Design and select parts that fit in the given diameter}
 {Size measurement using calipers or other appropriate measurement devices}
 {Verify with Wren Aerospace if this diameter is also valid for the fuel cell system}
-{}
-{}
+{Solid flow is designing their CGG in a modular way where the hydrogen generation rate can be configured to be sufficient. This is limited by maximum outer diameter. Solid Flow is confident they can create a CGG that generates hydrogen at a sufficient rate within the given size constrains. The fuel cell selected for the hydrogen test bench is by far the largest component and has an outer diameter smaller tna 130~mm. Fitting the other components in the space around the fuel cell might prove challenging but is theoretically possible.}
+{\REQvlevel{theory}}
 
 \REQadd{INT}{3}{M}
-{The fluid interface with the CGG shall normal operating pressure of 3~bar}
+{The fluid interface with the CGG shall have a normal operating pressure of 3~bar}
 {Select parts compatible with this pressure}
 {Leakage test with compressed air}
 {Exact value is dependant on buffer volume, 0.1 L ---> 3 bar}
-{}
-{}
+{All parts have been selected to be able to operate normally at 0--10~bar.}
+{\REQvlevel{manufacturer}}
 % Split normal operating pressure and max burst pressure (~2.5 x normal) bespreken met Joost/Toby
 
 \REQadd{INT}{4}{M}
@@ -174,8 +204,8 @@
 {Control fuel cell to use this mass flow rate of hydrogen using feedback control}
 {Verify using mass flow sensor}
 {}
-{}
-{}
+{The compressed air equivalent system demonstrated that the On-Off control system is capable of keeping the flow rate within the requirements. Integrated testing with the fuel cell is yet to be performed.}
+{\REQvlevel{equivalent}}
 % Fill in big range for this system, actual value may be whatever
 
 \REQadd{INT}{5}{M}
@@ -183,8 +213,8 @@
 {Tune DC/DC converter to convert fuel cell output voltage to battery and flight controller voltage}
 {Verify using mass voltmeter}
 {6S LiPo voltage}
-{}
-{}
+{A buck converter is used to regulate the voltage from the fuel cell to 24~V.}
+{\REQvlevel{full}}
 % Ask Wren
 
 \REQadd{INT}{6}{D}
@@ -192,8 +222,8 @@
 {Select connectors per platform specification}
 {Visual and mechanical inspection}
 {}
-{}
-{}
+{The hydrogen test bench uses XT60 connectors, which are the standard for connecting LiPo batteries in UAV's.}
+{\REQvlevel{full}}
 % Ask Wren
 
 % Environmental Requirements
@@ -202,16 +232,16 @@
 {Verify fuel cell performance at appropriate atmospheric conditions}
 {}
 {Translate to spec demands for fuel cell}
-{}
-{}
+{--- Flight test out of scope}
+{\REQvlevel{none}}
 
 \REQadd{ENV}{2}{D}
 {The system shall operate at a temperature between -35~°C and 25~°C}
 {Select components rated for temperature range}
 {Verify in environmental chamber}
 {Average temperature at 3 km (-4.5 °C) ±30 °C}
-{}
-{}
+{--- Flight test out of scope}
+{\REQvlevel{none}}
 % Avg standard atm +- 30 deg
 
 \REQadd{ENV}{3}{D}
@@ -219,16 +249,16 @@
 {Validate fuel cell air supply and performance}
 {Test under reduced pressure conditions}
 {Average pressure at 3 km (0.7 Bar) ±0.1 Bar}
-{}
-{}
+{--- Flight test out of scope}
+{\REQvlevel{none}}
 
 \REQadd{ENV}{4}{D}
 {The system should tolerate relative humidity levels between 50--80\%}
 {Validate fuel cell datasheet and performance}
 {Verify under controlled humidity conditions}
 {Typical Dutch weather, may be adjusted for all weather applications}
-{}
-{}
+{--- Flight test out of scope}
+{\REQvlevel{none}}
 
 
 % Safety Requirements
@@ -238,8 +268,8 @@
 {Design using COTS components rated for appropriate pressure}
 {Verify with leakage test}
 {}
-{}
-{}
+{The hydrogen test bench is designed using components rated for the appropriate pressure. A leak test of the hydrogen test bench is yet to be performed.}
+{\REQvlevel{pending}}
 % derive from FCU leakage
 
 \REQadd{SAFE}{2}{M}
@@ -247,24 +277,24 @@
 {Select parts compatible with this burst pressure}
 {Verify with manufacturer datasheets, potentially also a burst test with compressed air}
 {}
-{}
-{}
+{All selected components have a maximum burst pressure of at least 40~bar.}
+{\REQvlevel{full}}
 
 \REQadd{SAFE}{3}{M}
 {The system shall include overpressure protection}
 {Integrate pressure relief valve}
 {Verify using controlled pressure increase test}
 {Value should be lower than burst pressure}
-{}
-{}
+{Solid Flow is designing their CGG to include a pressure relief valve.}
+{\REQvlevel{full}}
 
 \REQadd{SAFE}{4}{M}
 {Expected hydrogen leakage should be vented along a safe path}
 {Connect pressure relief and purge output to tube that leads away from people}
 {Verify using visual inspection}
 {}
-{}
-{}
+{In the hydrogen test bench the fuel cell output is connected to a tube directed away from people.}
+{\REQvlevel{full}}
 % expected h2 leakage vented safely
 
 \REQadd{SAFE}{5}{M}
@@ -272,6 +302,6 @@
 {Always work outside when working with hydrogen}
 {Verify using visual inspection}
 {}
-{}
-{}
+{The hydrogen test bench is mounted on a cart that can easily be moved outside for testing. Hydrogen tanks used during testing are always stored outside.}
+{\REQvlevel{full}}
 % System should always be operated outside/ventilated space

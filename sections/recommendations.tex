@@ -1,7 +1,63 @@
 
 \chapter{Recommendations}%
-\label{chap:recommendations}
-TBD
+\label{chap:recommendations}%
+\emph{This chapter presents recommendations for future work and continued development of the SHARP-PS power generation and feed system. Although the performed simulations, subsystem tests, and test bench development demonstrate the technical feasibility of the proposed architecture, several aspects of the system remain unvalidated or require further optimisation before practical UAV integration can be achieved. The recommendations presented in this chapter provide a roadmap for the continued development of hydrogen fuel cell based UAV propulsion systems within the SHARP project.}
+\newpage
 
+\section{Integrated Hydrogen Testing}
+The highest priority recommendation following this project is to perform fully integrated hydrogen testing using the completed hydrogen test bench. Although the compressed air equivalent system successfully demonstrated the expected flow dynamics and control behaviour, the interaction between the actual hydrogen fuel cell and hydrogen supply system has not yet been experimentally validated.
+
+Future hydrogen tests should focus on verifying the complete behaviour of the integrated system under representative operating conditions. Particular attention should be given to the hydrogen consumption of the fuel cell during both steady-state operation and purge events. The purge frequency and purge duration should be measured and compared against manufacturer specifications and simulation assumptions. In addition, the pressure dynamics inside the CGG buffer volume should be analysed to verify whether the proposed buffer volume is sufficient to sustain stable fuel cell operation during transient conditions.
+
+The integrated hydrogen tests should also evaluate the interaction between the fuel cell and the hybrid battery system. Specifically, the ability of the battery to compensate for temporary fuel cell shutdowns and transient load peaks should be validated under realistic mission load profiles. The resulting measurements can subsequently be compared with the simulation results and compressed air equivalent tests to further validate the developed system models.
+
+Successful completion of these tests would significantly increase the technology readiness level of the SHARP-PS architecture and provide confidence for future UAV integration.
+
+\section{Integration of Final FCU and CGG Hardware}
+During this project, commercial off-the-shelf components and equivalent systems were used to emulate the behaviour of both Stellar Space Industries’ flow control unit and Solid Flow’s cool gas generator. Although this approach enabled subsystem development and validation, the final system behaviour remains dependent on the characteristics of the actual SHARP hardware.
+
+Future work should therefore focus on integrating the final versions of both the flow control unit and the cool gas generator into the hydrogen test bench. Particular attention should be given to the dynamic response of the flow control system, as this directly affects the stability of the fuel cell operation and the pressure regulation within the hydrogen buffer volume.
+
+In addition, the final cool gas generator should be evaluated for hydrogen generation consistency, startup behaviour, shutdown behaviour, pressure stability, and total hydrogen capacity. Since the mission endurance requirement is highly dependent on the achievable hydrogen storage density of the CGG, validating the final CGG performance is essential for determining the practical feasibility of the complete UAV power system.
+
+Integration of the final SHARP hardware would also allow verification of the assumptions used throughout the simulations and equivalent-system testing performed during this thesis.
+
+% \section{Advanced Control System Development}
+\section{Long-Duration Endurance Testing}
+One of the primary motivations behind the SHARP project is the possibility of significantly extending UAV mission duration using hydrogen fuel cell technology. Although simulations indicate that the proposed architecture may achieve mission durations in the order of 13--16 hours, this has not yet been experimentally validated.
+
+Future work should therefore include long-duration endurance tests using the integrated hydrogen test bench. These tests should simulate representative mission profiles over extended periods of time while continuously monitoring hydrogen consumption, battery behaviour, fuel cell output, and thermal conditions.
+
+Long-duration testing is particularly important because several effects only become visible during prolonged operation. These include fuel cell degradation, changes in purge frequency, thermal drift, battery cycling behaviour, and cumulative efficiency losses. In addition, the stability of the control system over long operating periods should be verified.
+
+The results of these endurance tests should subsequently be compared against equivalent battery-based UAV power systems to quantify the actual endurance improvement achieved by the hydrogen architecture.
+
+Successful endurance testing would provide one of the strongest demonstrations of the feasibility and practical value of the SHARP concept.
+
+\section{Environmental Validation}
+Environmental validation was outside the scope of this thesis but remains essential before operational deployment of a hydrogen powered UAV system can be considered.
+
+Future work should therefore include dedicated environmental testing of the integrated system. Environmental chamber testing should be performed to verify operation under low-temperature conditions representative of high-altitude flight. Reduced-pressure testing should also be performed to investigate fuel cell behaviour at operating altitudes up to 3 km.
+
+In addition, the effects of varying humidity levels on fuel cell performance and water management should be investigated. Since PEM fuel cells are sensitive to membrane hydration conditions, humidity may significantly influence efficiency and long-term reliability.
+
+
+\section{Mechanical Optimisation and Weight Reduction}
+The hydrogen test bench developed during this project was primarily designed as a flexible experimental platform rather than an optimised flight-ready system. As a result, the current implementation contains significant opportunities for mechanical optimisation and weight reduction.
+
+Future development should focus on reducing the total mass and volume of the system while maintaining safety and functionality. This may include reducing the amount of sensors, integrating the fuel cell controller and power system controller into a single board and designing light weight mounting solutions. Thermal management and vibration isolation should also be considered during future mechanical redesigns.
+
+Optimising the system mass and packaging efficiency is especially important because the achievable endurance improvement of hydrogen powered UAV systems is strongly dependent on overall system weight.
+
+\section{UAV Integration and Flight Testing}
+Although the developed hydrogen test bench provides a representative ground-test environment, the final objective of the SHARP project remains integration into an operational UAV platform. Ground testing alone cannot fully reproduce the environmental and operational conditions encountered during real flight.
+
+Future work should therefore focus on mechanical and electrical integration of the power generation and feed system into the Wren Aerospace UAV platform. This integration process should consider structural mounting, centre-of-gravity effects, vibration resistance, cooling airflow, and accessibility for maintenance and refuelling.
+
+Following integration, progressive flight testing should be performed. Initial tests should focus on low-risk operation such as short low altitude cruise tests under controlled conditions before moving towards long-endurance missions.
+
+Flight testing should evaluate the behaviour of the complete system during realistic manoeuvres, varying propulsion loads, changing environmental conditions, and communication with the flight controller. Particular attention should be given to the interaction between the fuel cell system and the UAV propulsion electronics during rapid throttle changes.
+
+Successful flight integration would represent a major milestone in the SHARP project and significantly increase the technology readiness level of the developed hydrogen power architecture.
 
 \newpage

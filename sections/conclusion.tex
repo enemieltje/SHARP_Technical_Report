@@ -1,6 +1,54 @@
 
 \chapter{Conclusion}
-TBD
+\newpage
+The goal of the SHARP-PS project was to investigate the feasibility of a hydrogen fuel cell based power generation and feed system for extending the mission duration of unmanned aerial vehicles. More specifically, the project aimed to investigate whether Solid Flow's cool gas generator and Stellar Space Industries' flow control technology could be integrated into a hybrid fuel cell power architecture suitable for UAV applications.
+
+To support this objective, a hydrogen-based power generation and feed architecture was designed, simulated, and partially validated using a compressed air equivalent system and a hydrogen test bench.
 
 
+
+% Results
+\subsection*{Results}
+The simulation results demonstrated that the proposed hybrid fuel cell and battery architecture is capable of maintaining stable operation during varying mission phases and fuel cell purge events. The simulations further showed that temporary fuel cell shutdown during low buffer pressure conditions can successfully be compensated by the hybrid battery system.
+
+The compressed air equivalent tests showed behaviour closely matching the simulation results. In both systems, purge events resulted in temporary pressure drops within the CGG buffer volume, after which the On-Off controller successfully restored pressure by temporarily limiting hydrogen consumption. These results demonstrate that the selected control strategy is capable of maintaining stable flow conditions using only the internal CGG buffer volume.
+
+The hydrogen test bench successfully demonstrated the integration of the electrical power management system, load emulation system, and data acquisition architecture.
+% Measurements from the test bench confirmed that the selected hybrid battery configuration is capable of decoupling transient load behaviour from the fuel cell dynamics.
+
+Requirement validation showed that the majority of functional, interface, and safety requirements were either directly validated through testing or demonstrated using simulations, equivalent systems, and manufacturer data.
+
+
+
+% Research Question
+\subsection*{Research Question}
+This thesis aimed to answer the following research question:
+
+`To what extent is a hydrogen fuel cell based power generation and feed system that integrates Solid Flow's cool gas generator and Stellar Space Industries' flow control unit feasible for extending the mission time of UAVs'
+
+Based on the performed analyses, simulations, and experimental validation, it can be concluded that such a system is technically feasible and shows strong potential for long-endurance UAV applications.
+
+The performed work demonstrates that a hybrid fuel cell and battery architecture can successfully compensate for the dynamic limitations of a fuel cell and cool gas generator combination while maintaining stable operation during varying load conditions and purge events. Furthermore, the theoretical energy density advantages of hydrogen storage indicate significant potential for increasing UAV mission duration compared to conventional battery systems.
+
+However, the feasibility of the complete system remains partially dependent on the final performance of Solid Flow's cool gas generator, particularly regarding volumetric hydrogen storage capacity and long-duration operation. In addition, full UAV integration and flight testing were outside the scope of this project and therefore remain subjects for future work.
+
+
+% Limitations
+\subsection*{Limitations}
+Several limitations affected the scope of this project. Most notably, hydrogen was not available in time to perform integrated hydrogen testing before completion of this report. As a result, full validation of the integrated hydrogen power system could not yet be completed.
+
+Additionally, the cool gas generator and Stellar Space Industries' flow control unit were both still under development during the execution of this project. Commercial off-the-shelf equivalents were therefore used to emulate their expected behaviour where necessary.
+
+Environmental testing and flight testing were also outside the scope of this project. Consequently, the environmental and flight performance requirements remain unverified.
+
+Despite these limitations, the developed simulation models, compressed air equivalent system, and hydrogen test bench provide a strong foundation for future validation and flight integration.
+
+
+% Final conclusion
+\subsection*{Final Conclusion}
+This project successfully demonstrated the design methodology, subsystem integration strategy, and control principles required for a hydrogen fuel cell based UAV power generation and feed system.
+
+The results obtained from simulation and subsystem testing indicate that the proposed hybrid architecture is capable of providing stable electrical power while managing the dynamic behaviour of hydrogen generation and fuel cell operation. The developed test bench furthermore provides a valuable platform for future hydrogen testing and continued development of the SHARP project.
+
+Overall, the work performed during this thesis demonstrates that hydrogen fuel cell based power systems represent a promising solution for extending UAV endurance and provide a viable direction for future sustainable aviation technologies.
 \newpage

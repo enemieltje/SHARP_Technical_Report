@@ -8,7 +8,9 @@
 % \input{workpackages.tex}
 
 % Define the Title Page
-\title{\textbf{Project SHARP- Power Generation and Delivery System} \\ \vspace{1cm}
+\title{
+\centering\includegraphics[width=\textwidth]{media/rl h2 setup.jpg}
+\textbf{Project SHARP- Power Generation and Delivery System} \\ \vspace{1cm}
 \textbf{Technical Report}}
 \author{Emil Boot}
 \date{\today}
@@ -20,7 +22,19 @@
 
 \chapter*{Preface}
 \addcontentsline{toc}{chapter}{Preface}
-TBD
+This report presents the results of my graduation project for the Bachelor's programme in Precision Engineering. The project was carried out at Stellar Space Industries and focuses on the development of a hydrogen-based power generation and feed system for long-endurance unmanned aerial vehicles.
+
+The goal of the project was to investigate the feasibility of generating electrical power from hydrogen produced by Solid Flow's cool gas generator and to develop a system architecture capable of integrating this technology into a UAV platform. Throughout the project, topics ranging from system requirements and design to simulation, electronics, fluidics and development of testing environments were explored.
+
+One of the aspects that made this project particularly interesting was its position at the intersection of multiple developing technologies. Several components of the envisioned system, including the cool gas generator and flow control unit, were still under development during the execution of this project. As a result, the project required continuous adaptation of assumptions, test methods and design decisions as new information became available. While not all planned hydrogen tests could be completed within the project timeline, the resulting simulation environment, compressed-air equivalent system and hydrogen test bench provide a solid foundation for future testing and development.
+
+I would like to express my gratitude to everyone who contributed to this project. First, I would like to thank Imre Bakker, my supervisor at Stellar Space Industries for providing the opportunity to work on this project and for their guidance throughout the graduation process. Their technical expertise and willingness to discuss ideas and challenges were invaluable.
+
+Furthermore, I would like to thank my colleagues at Stellar Space for their support and encouragement throughout my project and during the completion of this thesis.
+
+Finally, I would like to thank the teams at Solid Flow and Wren Aerospace for sharing information about their technologies and providing valuable input during the development of the system.
+
+I hope that the work presented in this report contributes to the continued development of hydrogen-powered UAV systems and provides a useful basis for future research and testing.
 
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
@@ -50,6 +64,8 @@ To verify the design, a test bench has been developed that includes a Fuel Cell,
 
 \begin{appendices}
     \input{project plan sections/appendix_a.tex}
+    \input{sections/appendix req list.tex}
+    \input{sections/appendix req validation.tex}
 \end{appendices}
 
 \newpage

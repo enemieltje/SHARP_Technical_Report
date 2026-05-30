@@ -8,9 +8,15 @@ The original system requirements were formulated for a fully integrated UAV-base
 These methods allow verification of system requirements at component and subsystem level under representative operating conditions. Where full system validation is not yet possible, indirect verification through equivalent measurements and analytical comparison is used.
 
 % \subsection*{Validation Results}
-Table~\ref{tab:validation matrix} lists each requirement and their current validation
+Below is a list of each requirement and their current validation status.
+Overall, the requirement validation demonstrates that the majority of the defined system requirements have either been directly validated through testing, validated using equivalent systems, or shown to be theoretically achievable based on manufacturer data and analytical modelling.
 
-\begin{table}
-    \caption{Requirement Validation Matrix}
-    \label{tab:validation matrix}
-\end{table}
+The developed compressed air equivalent system successfully demonstrated the behaviour of the proposed control architecture and validated the expected flow dynamics of the hydrogen subsystem under representative operating conditions. In addition, the hydrogen test bench verified the functionality of the electrical power management system, hybrid battery architecture, data acquisition system, and communication interfaces. These tests provide confidence that the selected architecture is capable of supporting stable power delivery for a hydrogen fuel cell based UAV power system.
+
+Several requirements remain only partially validated or unvalidated. In particular, the operational endurance requirement and the volumetric constraints of the cool gas generator are dependent on the final development status of Solid Flow’s CGG and therefore could not yet be experimentally confirmed. Likewise, the environmental requirements related to flight operation, altitude, temperature, and humidity remain outside the scope of the current ground-based validation campaign.
+
+Despite these limitations, the performed simulations, equivalent-system tests, and subsystem integrations collectively demonstrate the technical feasibility of the proposed architecture. The results indicate that the selected hybrid fuel cell and battery configuration is capable of meeting the most critical functional, interface, and safety requirements required for future UAV integration and flight testing.
+
+
+\REQvtable%
+
